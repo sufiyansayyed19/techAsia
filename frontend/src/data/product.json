@@ -1,0 +1,44 @@
+[
+  {
+    "_id": "666d9b3a5d8b8b3b3b3b3b01",
+    "name": "TM-500 PLC Controller",
+    "category": "PLC Automation",
+    "mainImage": "https://i.imgur.com/gKj3fLg.png",
+    "shortDescription": "High-performance programmable logic controller for complex industrial tasks.",
+    "detailedDescription": "The TM-500 is a state-of-the-art PLC designed for reliability and scalability in manufacturing environments. It features 32 I/O ports, high-speed processing, and seamless integration with existing SCADA systems.",
+    "features": [
+      "32 Digital I/O Ports",
+      "Modbus TCP/IP Protocol Support",
+      "1ms High-Speed Counter",
+      "Compact DIN Rail Mount"
+    ]
+  },
+  {
+    "_id": "666d9b3a5d8b8b3b3b3b3b02",
+    "name": "Custom Control Panel Pro",
+    "category": "Custom Control Panels",
+    "mainImage": "https://i.imgur.com/SOAsn5I.png",
+    "shortDescription": "Tailor-made control panels for industrial and commercial applications.",
+    "detailedDescription": "Our Custom Control Panel Pro is designed and fabricated to meet your specific operational requirements. We use high-quality components to ensure safety, reliability, and ease of use for any application, from simple motor control to complex process automation.",
+    "features": [
+      "Custom Enclosure Design",
+      "Integrated HMI/SCADA",
+      "Variable Frequency Drives (VFDs)",
+      "UL 508A Certified"
+    ]
+  },
+  {
+    "_id": "666d9b3a5d8b8b3b3b3b3b03",
+    "name": "Advanced PCB Assembly",
+    "category": "Electronics Manufacturing",
+    "mainImage": "https://i.imgur.com/RkFfN9g.png",
+    "shortDescription": "High-quality PCB design, prototyping, and assembly services.",
+    "detailedDescription": "From single prototypes to large-scale production runs, we provide end-to-end electronics manufacturing services. Our facility is equipped for both through-hole and surface-mount technologies, ensuring precision and quality for all your electronic systems.",
+    "features": [
+      "SMT and Through-Hole Assembly",
+      "Automated Optical Inspection (AOI)",
+      "BGA Rework and Repair",
+      "Full Turnkey Solutions"
+    ]
+  }
+]
