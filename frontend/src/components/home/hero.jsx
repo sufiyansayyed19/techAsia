@@ -22,7 +22,7 @@ const Hero = () => {
         {/* On desktop: Larger bottom margin (md:mb-6). */}
         <div className="inline-flex items-center space-x-2 bg-black/60 backdrop-blur-sm px-4 py-2 rounded-full border border-yellow-400 mb-4 md:mb-6">
           <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-          <span className="text-yellow-400 text-sm font-medium">Established 2016</span>
+          <span className="text-yellow-400 text-[0.7rem] lg:text-sm font-medium">Established 2016</span>
         </div>
 
         {/* Main Headline */}
@@ -46,7 +46,7 @@ const Hero = () => {
         {/* Action Buttons */}
         {/* On mobile: Smaller margin (mt-6). */}
         {/* On desktop: Larger margin (md:mt-8). flex-wrap is already making them stack on small screens, which is perfect. */}
-        <div className="mt-8 md:mt-8 flex flex-wrap justify-center gap-4">
+        <div className="mt-10 flex flex-wrap justify-center gap-4">
           <button className="bg-black/50 backdrop-blur-md text-white font-bold py-3 px-8 rounded-full border-2 border-transparent hover:bg-white hover:text-black transition-all duration-300">
             Explore
           </button>
