@@ -65,7 +65,7 @@ const Navbar = () => {
                     href={link.href}
                     onClick={() => setActive(link.name)}
                     className={`
-                      block px-10 py-2 capitalize transition-colors duration-300
+                      block px-10 py-2 text-base capitalize transition-colors duration-300
                       ${
                         active === link.name
                           ? 'text-white'

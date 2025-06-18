@@ -1,3 +1,30 @@
+/* src/index.css */
+
+/* INTER FONT */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/inter-v13-latin-regular.woff2') format('woff2');
+}
+/* ... other weights for Inter ... */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  src: url('/fonts/inter-v13-latin-800.woff2') format('woff2');
+}
+
+
+/* ALBERT SANS FONT */
+@font-face {
+  font-family: 'Albert Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/albert-sans-v1-latin-regular.woff2') format('woff2');
+}
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,6 +44,7 @@
   /* Optional: Reset font and smooth scrolling */
   html {
     scroll-behavior: smooth;
+    /* font-family: sans-serif, Helvetica; */
   }
 
   /* Optional: Remove list styles (bullets/numbers) */
