@@ -52,7 +52,7 @@ const Navbar = () => {
       <header className="absolute top-0 left-0 w-full z-50" ref={navbarRef}>
         <div className="container mx-auto px-6 flex justify-between items-center h-20">
           {/* Logo */}
-          <a href="/" className="flex-shrink-0">
+          <a href="/" className="flex-shrink-0 lg:pl-3">
             <img className="h-12 lg:h-14 w-auto" src={logo} alt="TechAsia Logo" />
           </a>
 

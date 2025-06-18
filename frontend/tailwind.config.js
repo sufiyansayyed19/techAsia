@@ -15,7 +15,27 @@ export default {
         // This adds 'Albert Sans' as a utility class, so you can use it like `font-albert`.
         albert: ['Albert Sans', ...fontFamily.sans],
       },
+      clipPath: {
+        'ellipse-lg': 'ellipse(85% 100% at 50% 0%)',
+        'ellipse-md': 'ellipse(150% 100% at 50% 0%)',
+        'ellipse-sm': 'ellipse(50% 100% at 50% 0%)',
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.clip-ellipse-lg': {
+          'clip-path': 'ellipse(85% 100% at 50% 0%)',
+        },
+        '.clip-ellipse-md': {
+          'clip-path': 'ellipse(150% 100% at 50% 0%)',
+        },
+        '.clip-ellipse-sm': {
+          'clip-path': 'ellipse(50% 100% at 50% 0%)',
+        },
+      };
+      addUtilities(newUtilities, ['responsive']);
+    },  
+  ],
 };
