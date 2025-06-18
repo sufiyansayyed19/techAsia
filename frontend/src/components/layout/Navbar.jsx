@@ -1,6 +1,11 @@
+// Desktop and mobile navbar hyperlinks remaining
+
+
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Package, Wrench, BookOpen, Users } from 'lucide-react';
 import logo from '../../assets/logo.png';
+
+
 
 const navLinks = [
   { name: 'Products', href: '#', icon: Package },
