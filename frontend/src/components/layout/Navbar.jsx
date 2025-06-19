@@ -80,43 +80,7 @@ const Navbar = () => {
             </ul>
           </nav>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={toggleMenu}
-            className="md:hidden inline-flex items-center p-2 text-white rounded-lg hover:bg-white hover:bg-opacity-10 focus:outline-none transition-colors duration-200"
-            aria-label="Toggle mobile menu"
-          >
-            {isMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
-        </div>
-      </header>
-
-      {/* Mobile Sidebar Overlay */}
-      <div
-        className={`fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden transition-opacity duration-300 ${
-          isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-        }`}
-        onClick={() => setIsMenuOpen(false)}
-      />
-
-      {/* Mobile Sidebar */}
-      <aside
-        className={`fixed top-0 left-0 z-50 w-64 h-screen bg-white dark:bg-[#2B1515] transform transition-transform duration-300 ease-in-out md:hidden ${
-          isMenuOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
-        <div className="h-full px-4 py-4 overflow-y-auto">
-          {/* Sidebar Header */}
-          <div className="flex items-center mb-8 pb-4 border-b border-gray-200 dark:border-gray-700">
-            <a href="/">
-              <img className="h-10 w-auto" src={logo} alt="TechAsia Logo" />
-            </a>
-            
-          </div>
+          
 
           {/* Navigation Links */}
           <nav>
