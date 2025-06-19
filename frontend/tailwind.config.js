@@ -17,8 +17,7 @@ export default {
       },
       clipPath: {
         'ellipse-lg': 'ellipse(85% 100% at 50% 0%)',
-        'ellipse-md': 'ellipse(150% 100% at 50% 0%)',
-        'ellipse-sm': 'ellipse(50% 100% at 50% 0%)',
+        'ellipse-md': 'ellipse(160% 100% at 50% 0%)'
       },
     },
   },
@@ -29,10 +28,7 @@ export default {
           'clip-path': 'ellipse(85% 100% at 50% 0%)',
         },
         '.clip-ellipse-md': {
-          'clip-path': 'ellipse(150% 100% at 50% 0%)',
-        },
-        '.clip-ellipse-sm': {
-          'clip-path': 'ellipse(50% 100% at 50% 0%)',
+          'clip-path': 'ellipse(160% 100% at 50% 0%)',
         },
       };
       addUtilities(newUtilities, ['responsive']);
