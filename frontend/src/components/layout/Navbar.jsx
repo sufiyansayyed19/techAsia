@@ -1,14 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 // --- MODIFIED: Import motion from Framer Motion ---
-import { AnimatePresence, motion, MotionConfig } from 'framer-motion'; 
-import { Menu, X, Package, Wrench, BookOpen, Users } from 'lucide-react';
+// eslint-disable-next-line no-unused-vars
+import { AnimatePresence, motion } from 'framer-motion';
+import { Menu, X, Wrench, BookOpen, Users, IdCard, DraftingCompass } from 'lucide-react';
 import logo from '../../assets/general/logo.png';
 
 const navLinks = [
-  { name: 'Home', href: '#', icon: Package },
   { name: 'Products', href: '#', icon: Wrench },
-  { name: 'Blogs', href: '#', icon: BookOpen },
-  { name: 'About us', href: '#', icon: Users },
+  { name: 'Digital Business Card', href: '#', icon: IdCard  },
+  { name: 'Tech Blog', href: '#', icon: BookOpen },
+  { name: 'Engineering Projects', href: '#', icon: DraftingCompass },
+  { name: 'About Us', href: '#', icon: Users },
 ];
 
 // --- NEW: Framer Motion Variants for animations ---
