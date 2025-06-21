@@ -1,12 +1,12 @@
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-// UPDATED: Imported a new icon for WhatsApp
 import { MessageCircle, Download } from 'lucide-react';
 
 const CTA = () => {
   return (
-    <section className="bg-white text-zinc-800">
+    // UPDATED: Reverted to a dark background to separate from the section above
+    <section className="bg-zinc-900 text-white">
       <div className="container mx-auto px-6 py-20 text-center">
         <motion.h2 
           className="text-4xl sm:text-5xl font-bold"
@@ -19,7 +19,8 @@ const CTA = () => {
         </motion.h2>
 
         <motion.p 
-          className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto"
+          // UPDATED: Text color reverted to a light gray for dark background
+          className="mt-4 text-lg text-slate-400 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
@@ -35,7 +36,7 @@ const CTA = () => {
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           viewport={{ once: true }}
         >
-          {/* --- UPDATED: This is now a motion.a tag with the WhatsApp link --- */}
+          {/* Primary Button (no changes needed, it works well on dark) */}
           <motion.a
             href="https://api.whatsapp.com/send/?phone=917666308198&text&type=phone_number&app_absent=0"
             target="_blank"
@@ -54,18 +55,17 @@ const CTA = () => {
             <MessageCircle className="w-5 h-5" />
           </motion.a>
 
-          {/* Secondary Button */}
+          {/* Secondary Button - UPDATED to the dark theme version */}
           <motion.button
             whileHover={{ 
               scale: 1.05, 
               y: -3, 
-              backgroundColor: "#334155",
-              color: "#ffffff",
-              borderColor: "#334155"
+              backgroundColor: "rgba(255, 255, 255, 0.1)",
+              borderColor: "rgba(255, 255, 255, 0.8)",
             }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="flex items-center justify-center gap-2 px-8 py-3 font-semibold text-slate-700 bg-transparent border-2 border-slate-400 rounded-full"
+            className="flex items-center justify-center gap-2 px-8 py-3 font-semibold text-white bg-transparent border-2 border-slate-600 rounded-full"
           >
             <Download className="w-5 h-5" />
             Download Brochure
