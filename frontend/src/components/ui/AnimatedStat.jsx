@@ -14,7 +14,7 @@ const AnimatedStat = ({ to }) => {
     //count increment animation
     const controls = animate(0, number, {
       duration: 1, // Animation duration in seconds
-      ease: "easeOut", // Easing function for a nice effect
+      ease: "easeOut", 
       onUpdate(value) {
         // On each frame of the animation, update the text content
         node.textContent = Math.round(value);
