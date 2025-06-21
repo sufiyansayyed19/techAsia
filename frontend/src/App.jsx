@@ -6,6 +6,7 @@ import LeadingForce from './components/home/LeadingForce';
 import IndustriesServed from './components/home/IndustriesServed';
 import CTA from './components/home/CTA';
 import Footer from './components/layout/Footer';
+import ClientsAndProjects from './components/home/ClientsAndProjects';
 function App() {
   return (
     <div className="">
@@ -16,6 +17,7 @@ function App() {
       <LeadingForce/>
        <IndustriesServed />
        <CTA />
+       <ClientsAndProjects/>
        <Footer/>
     </div>
   )
