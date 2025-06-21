@@ -19,6 +19,16 @@ export default {
         'ellipse-lg': 'ellipse(85% 100% at 50% 0%)',
         'ellipse-md': 'ellipse(160% 100% at 50% 0%)'
       },
+      // animation for infinity loop
+      animation: {
+        'infinite-scroll': 'infinite-scroll 35s linear infinite',
+      },
+      keyframes: {
+        'infinite-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-100%)' },
+        }
+      }
     },
   },
   plugins: [
