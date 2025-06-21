@@ -1,8 +1,9 @@
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
-import logo from '../../assets/general/logo.png'; // Assuming your logo is in the assets/general folder
+// UPDATED: Icons are now Facebook, Twitter, and Youtube
+import { MapPin, Facebook, Twitter, Youtube } from 'lucide-react';
+import logo from '../../assets/general/logo.png';
 
 // Data for links to keep the component clean
 const quickLinks = [
@@ -12,10 +13,11 @@ const quickLinks = [
   { name: 'Career', href: '#' },
 ];
 
+// UPDATED: socialLinks array now has the correct icons and your provided URLs
 const socialLinks = [
-  { name: 'Facebook', icon: Facebook, href: '#' },
-  { name: 'Instagram', icon: Instagram, href: '#' },
-  { name: 'LinkedIn', icon: Linkedin, href: '#' },
+  { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/techAsiaMechatronics/' },
+  { name: 'Twitter', icon: Twitter, href: 'https://x.com/priyesh287' },
+  { name: 'YouTube', icon: Youtube, href: 'https://www.youtube.com/@techasiamechatronicspvt.lt2051' },
 ];
 
 const Footer = () => {
@@ -80,6 +82,8 @@ const Footer = () => {
                 <a 
                   key={social.name} 
                   href={social.href}
+                  target="_blank" // Opens the link in a new tab
+                  rel="noopener noreferrer" // Important for security
                   aria-label={social.name}
                   className="bg-zinc-800 p-2 rounded-full text-amber-500 hover:bg-amber-500 hover:text-white transition-all duration-300"
                 >

@@ -1,10 +1,11 @@
 import React from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { ArrowRight, Download } from 'lucide-react';
+// UPDATED: Imported a new icon for WhatsApp
+import { MessageCircle, Download } from 'lucide-react';
 
 const CTA = () => {
   return (
-    // UPDATED: Background is now white, with dark text as the default.
     <section className="bg-white text-zinc-800">
       <div className="container mx-auto px-6 py-20 text-center">
         <motion.h2 
@@ -18,7 +19,6 @@ const CTA = () => {
         </motion.h2>
 
         <motion.p 
-          // UPDATED: Text color is now darker for readability on a light background.
           className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -35,35 +35,38 @@ const CTA = () => {
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           viewport={{ once: true }}
         >
-          {/* Primary Button - Looks great on white, no change needed */}
-          <motion.button
-  whileHover={{ 
-    scale: 1.05, 
-    y: -3, 
-    boxShadow: "0 15px 30px -5px rgba(249, 115, 22, 0.4)", // Softer, wider shadow
-    filter: "brightness(1.1)" // Adds a subtle 'glow'
-  }}
-  whileTap={{ scale: 0.95 }}
-  transition={{ duration: 0.2, ease: "easeOut" }} // Smooths the hover transition
-  className="flex items-center justify-center gap-2 px-8 py-3 font-semibold text-white bg-gradient-to-r from-amber-500 to-orange-600 rounded-full shadow-lg"
->
-            Schedule Consultation
-            <ArrowRight className="w-5 h-5" />
-          </motion.button>
+          {/* --- UPDATED: This is now a motion.a tag with the WhatsApp link --- */}
+          <motion.a
+            href="https://api.whatsapp.com/send/?phone=917666308198&text&type=phone_number&app_absent=0"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ 
+              scale: 1.05, 
+              y: -3, 
+              boxShadow: "0 15px 30px -5px rgba(249, 115, 22, 0.4)",
+              filter: "brightness(1.1)"
+            }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="flex items-center justify-center gap-2 px-8 py-3 font-semibold text-white bg-gradient-to-r from-amber-500 to-orange-600 rounded-full shadow-lg"
+          >
+            Contact on WhatsApp
+            <MessageCircle className="w-5 h-5" />
+          </motion.a>
 
-          {/* Secondary Button - UPDATED for light theme */}
+          {/* Secondary Button */}
           <motion.button
-  whileHover={{ 
-    scale: 1.05, 
-    y: -3, 
-    backgroundColor: "#334155", // A solid, dark slate background
-    color: "#ffffff", // White text
-    borderColor: "#334155" // Match border to background
-  }}
-  whileTap={{ scale: 0.95 }}
-  transition={{ duration: 0.2, ease: "easeOut" }} // Smooths the hover transition
-  className="flex items-center justify-center gap-2 px-8 py-3 font-semibold text-slate-700 bg-transparent border-2 border-slate-400 rounded-full"
->
+            whileHover={{ 
+              scale: 1.05, 
+              y: -3, 
+              backgroundColor: "#334155",
+              color: "#ffffff",
+              borderColor: "#334155"
+            }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="flex items-center justify-center gap-2 px-8 py-3 font-semibold text-slate-700 bg-transparent border-2 border-slate-400 rounded-full"
+          >
             <Download className="w-5 h-5" />
             Download Brochure
           </motion.button>
