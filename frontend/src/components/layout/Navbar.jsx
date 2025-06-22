@@ -4,6 +4,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X, Wrench, BookOpen, Users, IdCard, DraftingCompass } from 'lucide-react';
 import logo from '../../assets/general/logo.png';
 import { NavLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+
+
 
 const navLinks = [
   { name: 'Products', path: '/products', icon: Wrench },
@@ -12,6 +15,8 @@ const navLinks = [
   { name: 'Engineering Projects', path: '/engineering-projects', icon: DraftingCompass },
   { name: 'Contact Us', path: '/contact', icon: Users },
 ];
+
+
 
 // --- NEW: Framer Motion Variants for animations ---
 const sidebarVariants = {
@@ -58,6 +63,10 @@ const listItemVariants = {
 
 
 const Navbar = () => {
+
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
   const [active, setActive] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navbarRef = useRef(null);
@@ -100,11 +109,18 @@ const Navbar = () => {
     <>
       <header
         className={`
-          top-0 left-0 w-full z-50 transition-all duration-300
-          ${isScrolled ? 'fixed bg-[#161a1d] shadow-lg' : 'absolute bg-transparent'}
-        `}
-        ref={navbarRef}
-      >
+            w-full z-50 transition-all duration-300
+            ${
+              // If it's the homepage...
+              isHomePage 
+                // ...apply the floating/scrolling logic.
+                ? isScrolled ? 'fixed top-0 left-0 bg-[#161a1d] shadow-lg' : 'absolute top-0 left-0 bg-transparent'
+                // Otherwise (for all other pages)...
+                : 'relative bg-[#161a1d] shadow-lg' // ...make it solid and static.
+            }
+          `}
+          ref={navbarRef}
+        >
         <div className="container mx-auto px-6 flex justify-between items-center h-20">
           {/* Logo */}
           <a href="/" className="flex-shrink-0 lg:pl-3">

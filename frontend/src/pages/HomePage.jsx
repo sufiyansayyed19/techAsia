@@ -16,8 +16,8 @@ const HomePage = () => {
       <CoreCompetencies />
       <LeadingForce />
       <IndustriesServed />
-      <ClientsAndProjects />
       <CTA />
+      <ClientsAndProjects />
     </>
   );
 };
