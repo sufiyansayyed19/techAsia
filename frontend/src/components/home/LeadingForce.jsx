@@ -42,7 +42,7 @@ const LeadingForce = () => {
           
           {/* Left Side - Image */}
           <motion.div
-            className="relative order-2 lg:order-1 lg:col-span-2"
+            className="relative order-2 lg:order-1 lg:col-span-2 max-w-sm mx-auto lg:max-w-none lg:mx-0"
             variants={imageVariants}
             initial="hidden"
             whileInView="visible"
@@ -142,7 +142,7 @@ const LeadingForce = () => {
               ))}
             </motion.div>
 
-            {/* Optional CTA - UPDATED to the correct orange accent */}
+            
             <motion.div 
               className="mt-12 pt-8 border-t border-gray-200"
               initial={{ opacity: 0, y: 20 }}
