@@ -1,33 +1,11 @@
-/* src/index.css */
-
-/* INTER FONT */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  src: url('/fonts/inter-v13-latin-regular.woff2') format('woff2');
-}
-/* ... other weights for Inter ... */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 800;
-  src: url('/fonts/inter-v13-latin-800.woff2') format('woff2');
-}
-
-
-/* ALBERT SANS FONT */
-@font-face {
-  font-family: 'Albert Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: url('/fonts/albert-sans-v1-latin-regular.woff2') format('woff2');
-}
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;700;800&family=Inter:wght@400;500;700;800&display=swap');
 
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 
 
 
