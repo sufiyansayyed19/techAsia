@@ -63,12 +63,12 @@ const Footer = () => {
             <div className="space-y-2">
               <p>
                 <a href="mailto:info@techasia-mechatronics.com" className="hover:text-amber-500 transition-colors duration-200">
-                  info@techasia-mechatronics.com
+                  info@techasiamechatronics.com
                 </a>
               </p>
               <p>
                 <a href="tel:+919999999999" className="hover:text-amber-500 transition-colors duration-200">
-                  +91 XXX XXX XXXX
+                  +91 7666308198
                 </a>
               </p>
             </div>
