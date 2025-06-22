@@ -1,22 +1,34 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
 // eslint-disable-next-line no-unused-vars
-import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X, Wrench, BookOpen, Users, IdCard, DraftingCompass } from 'lucide-react';
-import logo from '../../assets/general/logo.png';
-import { NavLink } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-
-
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  Menu,
+  X,
+  Wrench,
+  BookOpen,
+  Users,
+  IdCard,
+  DraftingCompass,
+} from "lucide-react";
+import logo from "../../assets/general/logo.png";
+import { NavLink } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const navLinks = [
-  { name: 'Products', path: '/products', icon: Wrench },
-  { name: 'Digital Business Card', path: '/digital-business-card', icon: IdCard },
-  { name: 'Tech Blog', path: '/blogs', icon: BookOpen },
-  { name: 'Engineering Projects', path: '/engineering-projects', icon: DraftingCompass },
-  { name: 'Contact Us', path: '/contact', icon: Users },
+  { name: "Products", path: "/products", icon: Wrench },
+  {
+    name: "Digital Business Card",
+    path: "/digital-business-card",
+    icon: IdCard,
+  },
+  { name: "Tech Blog", path: "/blogs", icon: BookOpen },
+  {
+    name: "Engineering Projects",
+    path: "/engineering-projects",
+    icon: DraftingCompass,
+  },
+  { name: "Contact Us", path: "/contact", icon: Users },
 ];
-
-
 
 // --- NEW: Framer Motion Variants for animations ---
 const sidebarVariants = {
@@ -25,19 +37,19 @@ const sidebarVariants = {
     x: 0,
     opacity: 1,
     transition: {
-      type: 'spring', // A physics-based animation
+      type: "spring", // A physics-based animation
       stiffness: 300,
       damping: 30,
       // This is where the magic for the list items happens
-      staggerChildren: 0.1, 
+      staggerChildren: 0.1,
     },
   },
   // The "closed" state
   closed: {
-    x: '-100%',
+    x: "-100%",
     opacity: 0,
     transition: {
-      type: 'spring',
+      type: "spring",
       stiffness: 300,
       damping: 30,
     },
@@ -61,24 +73,16 @@ const listItemVariants = {
   },
 };
 
-
 const Navbar = () => {
-
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const isHomePage = location.pathname === "/";
 
-  const [active, setActive] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navbarRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
-
-  const handleLinkClick = (linkName) => {
-    setActive(linkName);
-    setIsMenuOpen(false);
   };
 
   useEffect(() => {
@@ -88,10 +92,10 @@ const Navbar = () => {
       }
     };
     if (isMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isMenuOpen]);
 
@@ -99,9 +103,9 @@ const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -119,15 +123,18 @@ const Navbar = () => {
                 : 'relative bg-[#161a1d] shadow-lg' // ...make it solid and static.
             }
           `}
-          ref={navbarRef}
-        >
+        ref={navbarRef}
+      >
         <div className="container mx-auto px-6 flex justify-between items-center h-20">
           {/* Logo */}
           <a href="/" className="flex-shrink-0 lg:pl-3">
-            <img className="h-12 lg:h-14 w-auto" src={logo} alt="TechAsia Logo" />
+            <img
+              className="h-12 lg:h-14 w-auto"
+              src={logo}
+              alt="TechAsia Logo"
+            />
           </a>
 
-          {/* Desktop Navigation */}
           {/* Desktop Navigation */}
           <nav className="hidden md:block">
             <ul className="flex items-center font-semibold text-lg">
@@ -141,10 +148,10 @@ const Navbar = () => {
                       block px-8 py-2 text-base capitalize transition-colors duration-300
                       ${
                         isActive
-                          // Active state: Apply gradient classes
-                          ? 'bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent'
-                          // Inactive state: Solid gray, with gradient on hover
-                          : 'text-gray-400 hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-600 hover:bg-clip-text hover:text-transparent'
+                          ? // Active state: Apply gradient classes
+                            "bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent"
+                          : // Inactive state: Solid gray, with gradient on hover
+                            "text-gray-400 hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-600 hover:bg-clip-text hover:text-transparent"
                       }
                     `}
                   >
@@ -161,7 +168,11 @@ const Navbar = () => {
             className="md:hidden inline-flex items-center p-2 text-white rounded-lg hover:bg-white hover:bg-opacity-10 focus:outline-none transition-colors duration-200"
             aria-label="Toggle mobile menu"
           >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
       </header>
@@ -190,7 +201,11 @@ const Navbar = () => {
               <div className="h-full px-4 py-4 overflow-y-auto">
                 <div className="flex items-center mb-8 pb-4 border-b border-gray-200 dark:border-gray-700">
                   <a href="/">
-                    <img className="h-10 w-auto" src={logo} alt="TechAsia Logo" />
+                    <img
+                      className="h-10 w-auto"
+                      src={logo}
+                      alt="TechAsia Logo"
+                    />
                   </a>
                 </div>
 
@@ -201,32 +216,40 @@ const Navbar = () => {
                     {navLinks.map((link) => {
                       const IconComponent = link.icon;
                       return (
-                        // Each item now has its own animation variant
                         <motion.li key={link.name} variants={listItemVariants}>
-                          <a
-                            href={link.href}
-                            onClick={() => handleLinkClick(link.name)}
-                            className={`
-                              flex items-center p-3 rounded-lg transition-colors duration-200 group
-                              ${
-                                active === link.name
-                                  ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-300'
-                                  : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
-                              }
-                            `}
+                          {/* --- UPDATED: Using NavLink instead of <a> --- */}
+                          <NavLink
+                            to={link.path}
+                            // Close the menu when a link is clicked
+                            onClick={() => setIsMenuOpen(false)}
+                            // --- UPDATED: className is now a function using `isActive` ---
+                            className={({ isActive }) => `
+            flex items-center p-3 rounded-lg transition-colors duration-200 group
+            ${
+              isActive
+                ? "bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-300"
+                : "text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+            }
+          `}
                           >
-                            <IconComponent
-                              className={`
-                                w-5 h-5 transition-colors duration-200
-                                ${
-                                  active === link.name
-                                    ? 'text-orange-700 dark:text-orange-300'
-                                    : 'text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white'
-                                }
-                              `}
-                            />
-                            <span className="ml-3 capitalize">{link.name}</span>
-                          </a>
+                            {({ isActive }) => (
+                              <>
+                                <IconComponent
+                                  className={`
+                  w-5 h-5 transition-colors duration-200
+                  ${
+                    isActive
+                      ? "text-orange-700 dark:text-orange-300"
+                      : "text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                  }
+                `}
+                                />
+                                <span className="ml-3 capitalize">
+                                  {link.name}
+                                </span>
+                              </>
+                            )}
+                          </NavLink>
                         </motion.li>
                       );
                     })}
