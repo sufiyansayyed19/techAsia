@@ -3,7 +3,7 @@ import App from '../App';
 import HomePage from '../pages/HomePage';
 import ProductsPage from '../pages/ProductsPage';
 import BlogsPage from '../pages/BlogsPage';
-import AboutPage from '../pages/AboutPage';
+import ContanctPage from '../pages/ContanctPage';
 import DigitalCardPage from '../pages/DigitalCardPage';
 import EngineeringProjectsPage from '../pages/EngineeringProjectsPage';
 
@@ -35,8 +35,8 @@ export const router = createBrowserRouter([
         element: <EngineeringProjectsPage />,
       },
       {
-        path: 'about',
-        element: <AboutPage />,
+        path: 'contact',
+        element: <ContanctPage />,
       },
     ],
   },

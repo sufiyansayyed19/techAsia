@@ -1,16 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
-// --- MODIFIED: Import motion from Framer Motion ---
 // eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X, Wrench, BookOpen, Users, IdCard, DraftingCompass } from 'lucide-react';
 import logo from '../../assets/general/logo.png';
+import { NavLink } from 'react-router-dom';
 
 const navLinks = [
-  { name: 'Products', href: '#', icon: Wrench },
-  { name: 'Digital Business Card', href: '#', icon: IdCard  },
-  { name: 'Tech Blog', href: '#', icon: BookOpen },
-  { name: 'Engineering Projects', href: '#', icon: DraftingCompass },
-  { name: 'About Us', href: '#', icon: Users },
+  { name: 'Products', path: '/products', icon: Wrench },
+  { name: 'Digital Business Card', path: '/digital-business-card', icon: IdCard },
+  { name: 'Tech Blog', path: '/blogs', icon: BookOpen },
+  { name: 'Engineering Projects', path: '/engineering-projects', icon: DraftingCompass },
+  { name: 'Contact Us', path: '/contact', icon: Users },
 ];
 
 // --- NEW: Framer Motion Variants for animations ---
@@ -112,24 +112,28 @@ const Navbar = () => {
           </a>
 
           {/* Desktop Navigation */}
+          {/* Desktop Navigation */}
           <nav className="hidden md:block">
             <ul className="flex items-center font-semibold text-lg">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    onClick={() => setActive(link.name)}
-                    className={`
-                      block px-10 py-2 text-base capitalize transition-colors duration-300
+                  {/* --- UPDATED: Using NavLink component --- */}
+                  <NavLink
+                    to={link.path}
+                    // The className prop can be a function to dynamically apply classes
+                    className={({ isActive }) => `
+                      block px-8 py-2 text-base capitalize transition-colors duration-300
                       ${
-                        active === link.name
+                        isActive
+                          // Active state: Apply gradient classes
                           ? 'bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent'
+                          // Inactive state: Solid gray, with gradient on hover
                           : 'text-gray-400 hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-600 hover:bg-clip-text hover:text-transparent'
                       }
                     `}
                   >
                     {link.name}
-                  </a>
+                  </NavLink>
                 </li>
               ))}
             </ul>

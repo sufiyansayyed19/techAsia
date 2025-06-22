@@ -46,7 +46,7 @@ const ClientsAndProjects = () => {
       {isList ? (
         // If the testimonial is an array, render it as an unordered list.
         // `list-none` is the key class to remove default browser bullet points.
-        <ul className="space-y-3 list-none">
+        <ul className="space-y-3 list-none">    
           {testimonial.map((item, index) => (
             // Each list item is a flex container for perfect alignment.
             <li key={index} className="flex items-start space-x-3">
