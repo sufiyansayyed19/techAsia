@@ -38,6 +38,10 @@ export const router = createBrowserRouter([
         path: 'contact',
         element: <ContanctPage />,
       },
+      {
+        path: 'vCard', 
+        element: <LiveCardDemoPage />,
+      },
     ],
   },
 ]);
