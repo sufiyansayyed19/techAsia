@@ -34,7 +34,7 @@ export const projectsData = {
   ],
   android: [
     // This category was empty in the image, we can add projects later.
-    "Android Project Example 1",
-    "Android Project Example 2"
+    "Android Project Frontend",
+    "Android Project Full Stack"
   ]
 };

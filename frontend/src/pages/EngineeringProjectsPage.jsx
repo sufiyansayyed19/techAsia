@@ -4,7 +4,27 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Cpu, CircuitBoard, Smartphone, Link as LinkIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { projectsData } from '../data/engineeringProjectsData'; // Import our new data
-import robotImg from '../assets/landingPage/industries.jpg'; // Make sure you have this image
+
+
+// --- (Keep all the other imports) ---
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay'; 
+import img1 from '../assets/EngineeringProjectImages/projectImage1.png'; 
+import img2 from '../assets/EngineeringProjectImages/projectImage2.png';
+import img3 from '../assets/EngineeringProjectImages/projectImage3.jpg';
+import img4 from '../assets/EngineeringProjectImages/projectImage4.png';
+import img5 from '../assets/EngineeringProjectImages/projectImage5.png'; 
+
+// --- UPDATED ARRAY ---
+const headerImages = [
+  { src: img1, alt: 'Advanced Automation System' },
+  { src: img2, alt: 'Custom PLC Control Panel' },
+  { src: img3, alt: 'Internet of Things Device' },
+  { src: img4, alt: 'Drone Technology Project' },
+  { src: img5, alt: 'Robotic Arm in Action' },
+];
+
+// ... (The rest of your EngineeringProjectsPage component) ...
 
 // Data for our tabs to keep JSX clean
 const tabs = [
@@ -15,6 +35,10 @@ const tabs = [
 
 const EngineeringProjectsPage = () => {
   const [activeTab, setActiveTab] = useState(tabs[0].id);
+  // --- NEW: Initialize Embla Carousel for the header ---
+  const [headerEmblaRef] = useEmblaCarousel({ loop: true }, [
+    Autoplay({ delay: 3000, stopOnInteraction: false })
+  ]);
 
   return (
     <div className="bg-white text-zinc-800">
@@ -40,6 +64,8 @@ const EngineeringProjectsPage = () => {
                 We Provide full support till project Submission.
               </p>
             </motion.div>
+            
+            {/* --- UPDATED: Static image is replaced with the carousel --- */}
             <motion.div 
               className="relative hidden lg:block"
               initial={{ opacity: 0, scale: 0.8 }}
@@ -47,7 +73,16 @@ const EngineeringProjectsPage = () => {
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             >
               <div className="absolute -inset-4 bg-gradient-to-br from-orange-600/20 to-zinc-800 rounded-2xl blur-lg"></div>
-              <img src={robotImg} alt="Engineering Project Robot" className="relative w-full max-w-md mx-auto rounded-lg shadow-2xl" />
+              {/* Embla Carousel Viewport */}
+              <div className="embla rounded-lg overflow-hidden shadow-2xl h-80 lg:h-96" ref={headerEmblaRef}>
+                <div className="embla__container flex">
+                  {headerImages.map((img, index) => (
+                    <div className="embla__slide flex-[0_0_100%] min-w-0" key={index}>
+                      <img src={img.src} alt={img.alt} className="w-full h-auto" />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
