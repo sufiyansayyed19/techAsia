@@ -54,11 +54,11 @@ const CTA = () => {
 
           {/* --- UPDATED BUTTON --- */}
           <motion.a
-            // 2. Add the href pointing to your file in the /public folder
-            href="/brochure.pdf" // <-- IMPORTANT: Replace "brochure.pdf" with your file's name
+            
+            href="/Brochure.pdf" // 
             
             // 3. Add the 'download' attribute to trigger a download
-            download="Company-Brochure.pdf" // Optional: You can set a custom filename for the user
+            download="TechAsia-Brochure.pdf" // Optional: can set a custom filename for the user
             
             // 1. Changed from motion.button to motion.a
             whileHover={{ 
