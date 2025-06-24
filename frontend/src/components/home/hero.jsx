@@ -1,6 +1,6 @@
 import React from 'react';
 import heroBgImage from '../../assets/landingPage/hero.png';
-
+import { Link } from 'react-router-dom';
 const Hero = () => {
   return (
     <section
@@ -32,13 +32,22 @@ const Hero = () => {
           Cutting-edge solutions for manufacturing, process control, and industrial automation that help businesses increase productivity and reduce operational costs.
         </p>
 
-        <div className="mt-10 flex flex-wrap justify-center gap-4">
-          <button className="bg-black/50 backdrop-blur-md text-white font-bold py-3 px-8 rounded-full border-2 border-transparent hover:bg-white hover:text-black transition-all duration-300">
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
+          {/* The "Explore" button now links to the /products page */}
+          <Link 
+            to="/products"
+            className="bg-black bg-opacity-50 backdrop-blur-md text-white font-bold py-3 px-8 rounded-full border-2 border-transparent hover:bg-white hover:text-black transition-all duration-300"
+          >
             Explore
-          </button>
-          <button className="bg-transparent border-2 border-gray-400 text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-black transition-all duration-300">
-            Contact
-          </button>
+          </Link>
+          
+          {/* The "Contact" button now links to your /vCard page */}
+          <Link 
+            to="/vCard"
+            className="bg-transparent border-2 border-gray-400 text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-black transition-all duration-300"
+          >
+            Our Card
+          </Link>
         </div>
       </div>
     </section>
