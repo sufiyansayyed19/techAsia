@@ -1,19 +1,19 @@
 import React from 'react';
+// 1. Import Link from react-router-dom for SPA navigation
+import { Link } from 'react-router-dom'; 
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-// UPDATED: Icons are now Facebook, Twitter, and Youtube
 import { MapPin, Facebook, Twitter, Youtube } from 'lucide-react';
 import logo from '../../assets/general/logo.png';
 
-// Data for links to keep the component clean
+// 2. Updated the quickLinks array with correct names and paths from your router
 const quickLinks = [
-  { name: 'About Us', href: '#' },
-  { name: 'Services', href: '#' },
-  { name: 'Industries', href: '#' },
-  { name: 'Career', href: '#' },
+  { name: 'About Us', href: '/contact' }, // As requested, points to the Contact page
+  { name: 'Products', href: '/products' },
+  { name: 'Digital Card', href: '/digital-business-card' },
+  { name: 'Engineering Projects', href: '/engineering-projects' },
 ];
 
-// UPDATED: socialLinks array now has the correct icons and your provided URLs
 const socialLinks = [
   { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/techAsiaMechatronics/' },
   { name: 'Twitter', icon: Twitter, href: 'https://x.com/priyesh287' },
@@ -30,7 +30,7 @@ const Footer = () => {
           
           {/* Column 1: Company & Address */}
           <div className="space-y-4">
-            <a href="#" className="inline-block">
+            <a href="/" className="inline-block"> {/* Changed href to "/" to link to homepage */}
               <img src={logo} alt="TechAsia Logo" className="h-12 mx-auto sm:mx-0" />
             </a>
             <div className="flex items-start justify-center sm:justify-start gap-3">
@@ -43,15 +43,19 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Column 2: Quick Links */}
+          {/* Column 2: Quick Links - UPDATED */}
           <div className="space-y-4">
             <h3 className="font-bold text-lg text-white">Quick Links</h3>
             <ul className="space-y-2">
               {quickLinks.map(link => (
                 <li key={link.name}>
-                  <a href={link.href} className="hover:text-amber-500 transition-colors duration-200">
+                  {/* 3. Replaced <a> with <Link> and href with to */}
+                  <Link 
+                    to={link.href} 
+                    className="hover:text-amber-500 transition-colors duration-200"
+                  >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -62,12 +66,12 @@ const Footer = () => {
             <h3 className="font-bold text-lg text-white">Contact Info</h3>
             <div className="space-y-2">
               <p>
-                <a href="mailto:info@techasia-mechatronics.com" className="hover:text-amber-500 transition-colors duration-200">
+                <a href="mailto:info@techasiamechatronics.com" className="hover:text-amber-500 transition-colors duration-200">
                   info@techasiamechatronics.com
                 </a>
               </p>
               <p>
-                <a href="tel:+919999999999" className="hover:text-amber-500 transition-colors duration-200">
+                <a href="tel:+917666308198" className="hover:text-amber-500 transition-colors duration-200">
                   +91 7666308198
                 </a>
               </p>
@@ -82,8 +86,8 @@ const Footer = () => {
                 <a 
                   key={social.name} 
                   href={social.href}
-                  target="_blank" // Opens the link in a new tab
-                  rel="noopener noreferrer" // Important for security
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={social.name}
                   className="bg-zinc-800 p-2 rounded-full text-amber-500 hover:bg-amber-500 hover:text-white transition-all duration-300"
                 >
