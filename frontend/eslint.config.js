@@ -29,5 +29,13 @@ export default [
         { allowConstantExport: true },
       ],
     },
+     overrides: [
+    {
+      files: ['tailwind.config.js'], // Target your tailwind config
+      env: {
+        node: true, // Let ESLint know this file runs in a Node.js environment
+      },
+    },
+  ],
   },
 ]
