@@ -111,15 +111,16 @@ const LoginPage = () => {
                     </Link>
                     
                     {/* Blogs Card - Still a div for now */}
-                    <div className="cursor-not-allowed">
-                        <motion.div>
-                            <div className="bg-zinc-800 p-8 rounded-xl shadow-2xl border border-zinc-700 h-full text-center opacity-50">
+                     {/* Blogs Card - UPDATED */}
+                    <Link to="/blogs">
+                        <motion.div whileHover={{ y: -5, scale: 1.03 }}>
+                            <div className="bg-zinc-800 p-8 rounded-xl shadow-2xl border border-zinc-700 h-full text-center hover:border-orange-400 transition-colors">
                                 <BookText className="mx-auto h-12 w-12 text-orange-400 mb-4" />
                                 <h2 className="text-xl font-bold">Tech Blogs</h2>
                                 <p className="text-slate-400 text-sm mt-2">Write, publish, and manage blog articles.</p>
                             </div>
                         </motion.div>
-                    </div>
+                    </Link>
                 </div>
             </motion.div>
           )}
