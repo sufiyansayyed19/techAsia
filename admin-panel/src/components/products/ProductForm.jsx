@@ -7,15 +7,24 @@ const ProductForm = ({ product, onSave, onCancel }) => {
     title: '',
     slug: '',
     description: '',
+    image: '',
     additionalFeatures: [],
     technicalDetails: [{ key: '', value: '' }]
   });
+  const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
     if (product) {
       setFormData({
         ...product,
-        technicalDetails: Object.entries(product.technicalDetails).map(([key, value]) => ({ key, value }))
+        technicalDetails: Object.entries(product.technicalDetails || {}).map(([key, value]) => ({ key, value }))
+      });
+    } else {
+      // Reset form for new product
+      setFormData({
+        title: '', slug: '', description: '', image: '',
+        additionalFeatures: [''],
+        technicalDetails: [{ key: '', value: '' }]
       });
     }
   }, [product]);
@@ -23,6 +32,10 @@ const ProductForm = ({ product, onSave, onCancel }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileChange = (e) => {
+    setImageFile(e.target.files[0]);
   };
 
   const handleFeatureChange = (index, value) => {
@@ -62,16 +75,33 @@ const ProductForm = ({ product, onSave, onCancel }) => {
             return acc;
         }, {})
     };
-    onSave(finalProduct);
+    // In a real app, you'd handle the imageFile upload here
+    onSave(finalProduct, imageFile);
   };
 
   return (
     <div className="bg-zinc-800 p-8 rounded-xl shadow-2xl border border-zinc-700">
       <h2 className="text-xl font-bold mb-6">{product ? 'Edit Product' : 'Add New Product'}</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Basic Fields */}
         <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder="Product Title" className="w-full p-3 bg-zinc-700 rounded-md" required />
         <input type="text" name="slug" value={formData.slug} onChange={handleChange} placeholder="URL Slug (e.g., my-product)" className="w-full p-3 bg-zinc-700 rounded-md" />
+        
+        {/* --- UPDATED: Image Field Section --- */}
+        <div>
+          <h3 className="font-semibold mb-2">Product Image</h3>
+          <div className="flex items-center gap-4">
+            {formData.image && (
+              <img src={formData.image} alt="Current" className="w-20 h-20 object-contain p-1 bg-zinc-700 rounded-md" />
+            )}
+            <input 
+              type="file" 
+              name="imageFile" 
+              onChange={handleFileChange}
+              className="block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-900/50 file:text-orange-300 hover:file:bg-orange-800/50"
+            />
+          </div>
+        </div>
+
         <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Description" className="w-full p-3 bg-zinc-700 rounded-md" rows="4"></textarea>
 
         {/* Additional Features */}
@@ -101,7 +131,6 @@ const ProductForm = ({ product, onSave, onCancel }) => {
             <button type="button" onClick={addDetail} className="text-sm text-orange-400 flex items-center gap-1"><PlusCircle size={16} /> Add Detail</button>
         </div>
         
-        {/* Action Buttons */}
         <div className="flex justify-end gap-4 pt-4 border-t border-zinc-700">
           <button type="button" onClick={onCancel} className="px-6 py-2 bg-zinc-600 rounded-md hover:bg-zinc-500 transition-colors">Cancel</button>
           <button type="submit" className="px-6 py-2 bg-gradient-to-r from-amber-500 to-orange-600 rounded-full font-semibold">Save Product</button>

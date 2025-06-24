@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LogIn, KeyRound, Briefcase, BookText } from 'lucide-react';
 import logo from '../assets/logo.png'; // We'll add the logo next
-
+import { Link } from 'react-router-dom';
 const LoginPage = () => {
   // State to track if the user is authenticated
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -94,31 +94,32 @@ const LoginPage = () => {
           ) : (
             // --- DASHBOARD OPTIONS ---
             <motion.div
-              key="dashboard"
-              variants={cardVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
+            key="dashboard"
+            // ... (keep motion props)
             >
                 <h1 className="text-3xl font-bold text-center mb-8">Select Content to Manage</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Products Card */}
-                    <motion.div whileHover={{ y: -5, scale: 1.03 }} className="cursor-pointer">
-                        <div className="bg-zinc-800 p-8 rounded-xl shadow-2xl border border-zinc-700 h-full text-center hover:border-orange-400 transition-colors">
-                            <Briefcase className="mx-auto h-12 w-12 text-orange-400 mb-4" />
-                            <h2 className="text-xl font-bold">Products</h2>
-                            <p className="text-slate-400 text-sm mt-2">Create, edit, and delete company products.</p>
-                        </div>
-                    </motion.div>
+                    {/* Products Card - UPDATED */}
+                    <Link to="/products">
+                        <motion.div whileHover={{ y: -5, scale: 1.03 }}>
+                            <div className="bg-zinc-800 p-8 rounded-xl shadow-2xl border border-zinc-700 h-full text-center hover:border-orange-400 transition-colors">
+                                <Briefcase className="mx-auto h-12 w-12 text-orange-400 mb-4" />
+                                <h2 className="text-xl font-bold">Products</h2>
+                                <p className="text-slate-400 text-sm mt-2">Create, edit, and delete company products.</p>
+                            </div>
+                        </motion.div>
+                    </Link>
                     
-                    {/* Blogs Card */}
-                    <motion.div whileHover={{ y: -5, scale: 1.03 }} className="cursor-pointer">
-                        <div className="bg-zinc-800 p-8 rounded-xl shadow-2xl border border-zinc-700 h-full text-center hover:border-orange-400 transition-colors">
-                            <BookText className="mx-auto h-12 w-12 text-orange-400 mb-4" />
-                            <h2 className="text-xl font-bold">Tech Blogs</h2>
-                            <p className="text-slate-400 text-sm mt-2">Write, publish, and manage blog articles.</p>
-                        </div>
-                    </motion.div>
+                    {/* Blogs Card - Still a div for now */}
+                    <div className="cursor-not-allowed">
+                        <motion.div>
+                            <div className="bg-zinc-800 p-8 rounded-xl shadow-2xl border border-zinc-700 h-full text-center opacity-50">
+                                <BookText className="mx-auto h-12 w-12 text-orange-400 mb-4" />
+                                <h2 className="text-xl font-bold">Tech Blogs</h2>
+                                <p className="text-slate-400 text-sm mt-2">Write, publish, and manage blog articles.</p>
+                            </div>
+                        </motion.div>
+                    </div>
                 </div>
             </motion.div>
           )}
