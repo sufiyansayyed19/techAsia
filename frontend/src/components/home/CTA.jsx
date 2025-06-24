@@ -5,7 +5,6 @@ import { MessageCircle, Download } from 'lucide-react';
 
 const CTA = () => {
   return (
-    // UPDATED: Reverted to a dark background to separate from the section above
     <section className="bg-zinc-900 text-white">
       <div className="container mx-auto px-6 py-20 text-center">
         <motion.h2 
@@ -19,7 +18,6 @@ const CTA = () => {
         </motion.h2>
 
         <motion.p 
-          // UPDATED: Text color reverted to a light gray for dark background
           className="mt-4 text-lg text-slate-400 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -36,7 +34,6 @@ const CTA = () => {
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           viewport={{ once: true }}
         >
-          {/* Primary Button (no changes needed, it works well on dark) */}
           <motion.a
             href="https://api.whatsapp.com/send/?phone=917666308198&text&type=phone_number&app_absent=0"
             target="_blank"
@@ -55,8 +52,15 @@ const CTA = () => {
             <MessageCircle className="w-5 h-5" />
           </motion.a>
 
-          {/* Secondary Button - UPDATED to the dark theme version */}
-          <motion.button
+          {/* --- UPDATED BUTTON --- */}
+          <motion.a
+            // 2. Add the href pointing to your file in the /public folder
+            href="/brochure.pdf" // <-- IMPORTANT: Replace "brochure.pdf" with your file's name
+            
+            // 3. Add the 'download' attribute to trigger a download
+            download="Company-Brochure.pdf" // Optional: You can set a custom filename for the user
+            
+            // 1. Changed from motion.button to motion.a
             whileHover={{ 
               scale: 1.05, 
               y: -3, 
@@ -69,7 +73,7 @@ const CTA = () => {
           >
             <Download className="w-5 h-5" />
             Download Brochure
-          </motion.button>
+          </motion.a>
         </motion.div>
       </div>
     </section>
