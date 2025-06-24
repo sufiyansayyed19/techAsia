@@ -1,9 +1,10 @@
+
+import LoginPage from './pages/LoginPage';
+
 function App() {
   return (
-    <div className="bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold text-center p-8">Admin Panel</h1>
-    </div>
+    <LoginPage />
   )
 }
 
-export default App
+export default App;
