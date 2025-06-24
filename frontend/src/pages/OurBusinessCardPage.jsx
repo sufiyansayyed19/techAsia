@@ -2,11 +2,12 @@
 
 // --- Imports ---
 import { useState } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Phone, Globe, MapPin, Twitter, Mail, Linkedin, Facebook, Youtube, QrCode, Share2, Save, HelpCircle, X } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
-import profilePic from '../assets/digital-card/profile-pic.png';
+import profilePic from '../assets/digital-card/profile-pic.jpg';
 import techAsiaLogo from '../assets/general/logo.png';
 
 // --- Data ---
@@ -24,16 +25,36 @@ const OurBusinessCardPage = () => {
   const [isQrModalOpen, setIsQrModalOpen] = useState(false);
 
   const handleShare = async () => {
-    // ... (handleShare function remains the same)
-  };
+const shareData = {
+title: 'TechAsia Mechatronics vCard',
+text: 'Here is the digital business card for Priyesh Chiplunkar from TechAsia Mechatronics.',
+url: window.location.href,
+};
+try {
+if (navigator.share) {
+await navigator.share(shareData);
+} else {
+throw new Error('Web Share API not supported');
+}
+// eslint-disable-next-line no-unused-vars
+} catch (err) {
+// Fallback for desktop or unsupported browsers
+navigator.clipboard.writeText(window.location.href);
+alert('Link copied to clipboard!');
+}
+};
 
   return (
-    <div className="bg-slate-100 min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="bg-[#2a2b2a] min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute -top-1/4 -left-1/4 w-96 h-96 bg-gradient-to-br from-orange-200 to-transparent rounded-full opacity-50 blur-3xl" aria-hidden="true"></div>
       <div className="absolute -bottom-1/4 -right-1/4 w-96 h-96 bg-gradient-to-tl from-red-200 to-transparent rounded-full opacity-50 blur-3xl" aria-hidden="true"></div>
       
       <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="relative max-w-sm w-full mx-auto">
+        <div 
+            className="absolute -inset-2 bg-gradient-to-tr from-orange-300 to-red-200 rounded-[32px] blur-xl opacity-20"
+            aria-hidden="true"
+        ></div>
         <div className="relative bg-zinc-800 text-white rounded-3xl shadow-2xl overflow-hidden">
           
           {/* --- FIXED: Added the main card content back in --- */}
@@ -95,11 +116,13 @@ const OurBusinessCardPage = () => {
 
 // --- Helper Components ---
 
-// eslint-disable-next-line react/prop-types
+// eslint-disable-next-line no-unused-vars
 const ContactItem = ({ icon: Icon, text, href }) => ( <div className="flex items-center gap-4 group"><div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"><Icon className="w-5 h-5 text-black" /></div>{href ? (<a href={href} target="_blank" rel="noopener noreferrer" className="text-slate-200 group-hover:underline">{text}</a>) : (<p className="text-slate-200">{text}</p>)}</div> );
-// eslint-disable-next-line react/prop-types
+
+// eslint-disable-next-line no-unused-vars
 const SocialLink = ({ icon: Icon, href }) => ( <a href={href} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transform transition-transform duration-200 hover:scale-125"><Icon className="w-6 h-6" /></a> );
-// eslint-disable-next-line react/prop-types, no-unused-vars
+
+// eslint-disable-next-line no-unused-vars
 const FooterAction = ({ icon: Icon, text, onClick }) => ( <button onClick={onClick} className="flex flex-col items-center justify-center py-3 text-white hover:bg-orange-600 transition-colors duration-200"><Icon className="w-6 h-6" /><span className="text-xs mt-1">{text}</span></button> );
 
 export default OurBusinessCardPage;
