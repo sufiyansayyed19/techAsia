@@ -4,14 +4,14 @@ import { PlusCircle, XCircle } from 'lucide-react';
 
 const ProductForm = ({ product, onSave, onCancel }) => {
   const [formData, setFormData] = useState({
-    title: '',
-    slug: '',
-    description: '',
-    image: '',
+    title: '', slug: '', description: '', image: '',
     additionalFeatures: [],
     technicalDetails: [{ key: '', value: '' }]
   });
+  
+  // --- UPDATED: State for file object and preview URL ---
   const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState('');
 
   useEffect(() => {
     if (product) {
@@ -19,6 +19,8 @@ const ProductForm = ({ product, onSave, onCancel }) => {
         ...product,
         technicalDetails: Object.entries(product.technicalDetails || {}).map(([key, value]) => ({ key, value }))
       });
+      // Set initial preview from existing product image
+      setImagePreview(product.image);
     } else {
       // Reset form for new product
       setFormData({
@@ -26,7 +28,10 @@ const ProductForm = ({ product, onSave, onCancel }) => {
         additionalFeatures: [''],
         technicalDetails: [{ key: '', value: '' }]
       });
+      setImagePreview('');
     }
+    // Clear the file input state
+    setImageFile(null);
   }, [product]);
   
   const handleChange = (e) => {
@@ -34,8 +39,14 @@ const ProductForm = ({ product, onSave, onCancel }) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // --- UPDATED: Handle file selection and create preview ---
   const handleFileChange = (e) => {
-    setImageFile(e.target.files[0]);
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      // Create a temporary URL for the selected file to show a preview
+      setImagePreview(URL.createObjectURL(file));
+    }
   };
 
   const handleFeatureChange = (index, value) => {
@@ -75,7 +86,6 @@ const ProductForm = ({ product, onSave, onCancel }) => {
             return acc;
         }, {})
     };
-    // In a real app, you'd handle the imageFile upload here
     onSave(finalProduct, imageFile);
   };
 
@@ -86,25 +96,31 @@ const ProductForm = ({ product, onSave, onCancel }) => {
         <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder="Product Title" className="w-full p-3 bg-zinc-700 rounded-md" required />
         <input type="text" name="slug" value={formData.slug} onChange={handleChange} placeholder="URL Slug (e.g., my-product)" className="w-full p-3 bg-zinc-700 rounded-md" />
         
-        {/* --- UPDATED: Image Field Section --- */}
         <div>
           <h3 className="font-semibold mb-2">Product Image</h3>
-          <div className="flex items-center gap-4">
-            {formData.image && (
-              <img src={formData.image} alt="Current" className="w-20 h-20 object-contain p-1 bg-zinc-700 rounded-md" />
+          <div className="flex flex-col gap-4">
+            {/* --- NEW: Image Preview --- */}
+            {imagePreview && (
+              <div>
+                <img 
+                  src={imagePreview} 
+                  alt="Product Preview" 
+                  className="w-48 h-48 object-contain p-2 bg-zinc-700 rounded-lg"
+                />
+              </div>
             )}
             <input 
               type="file" 
               name="imageFile" 
               onChange={handleFileChange}
-              className="block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-900/50 file:text-orange-300 hover:file:bg-orange-800/50"
+              accept="image/png, image/jpeg, image/jpg"
+              className="block w-full max-w-xs text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-500/20 file:text-orange-300 hover:file:bg-orange-500/30"
             />
           </div>
         </div>
 
         <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Description" className="w-full p-3 bg-zinc-700 rounded-md" rows="4"></textarea>
 
-        {/* Additional Features */}
         <div>
           <h3 className="font-semibold mb-2">Additional Features</h3>
           {formData.additionalFeatures.map((feature, index) => (
@@ -116,7 +132,6 @@ const ProductForm = ({ product, onSave, onCancel }) => {
           <button type="button" onClick={addFeature} className="text-sm text-orange-400 flex items-center gap-1"><PlusCircle size={16} /> Add Feature</button>
         </div>
 
-        {/* Technical Details */}
         <div>
             <h3 className="font-semibold mb-2">Technical Details</h3>
             {formData.technicalDetails.map((detail, index) => (
