@@ -1,6 +1,6 @@
 // routes/productRoutes.js
 import express from 'express';
-import { getProducts, createProduct } from '../controllers/productController.js';
+import { getProducts, createProduct, updateProduct, deleteProduct } from '../controllers/productController.js';
 
 const router = express.Router();
 
@@ -9,5 +9,8 @@ router.route('/').get(getProducts);
 
 // This route will handle POST requests to /api/products
 router.route('/').post(createProduct);
+
+// This handles PUT and DELETE for URLs with an ID, like /api/products/12345
+router.route('/:id').put(updateProduct).delete(deleteProduct);
 
 export default router;
