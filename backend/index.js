@@ -3,7 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-
+import productRoutes from './routes/productRoutes.js';
 // Load environment variables
 dotenv.config();
 
@@ -17,6 +17,8 @@ app.use(express.json()); // Parses incoming JSON requests
 app.get('/', (req, res) => {
   res.send('TechAsia Backend API is running!');
 });
+
+
 
 // Connect to MongoDB
 const connectDB = async () => {
