@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* src/index.css */
+
+/* ... (keep the @tailwind directives at the top) ... */
+
+/* --- FIX V3: Scoped styles for the Markdown Editor --- */
+
+/* This is our custom wrapper class */
+.md-editor-dark-theme .editor-toolbar a:hover {
+  background: #3f3f46 !important; /* A visible dark gray from the zinc palette */
+  border: 1px solid #52525b !important;
+}
+
+.md-editor-dark-theme .editor-toolbar a.active {
+  background: #ea580c !important; /* Our theme's orange */
+}

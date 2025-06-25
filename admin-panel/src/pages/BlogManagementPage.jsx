@@ -47,7 +47,7 @@ const BlogManagementPage = () => {
     <div className="min-h-screen bg-zinc-900 text-white p-8">
       <header className="flex justify-between items-center mb-8">
         <Link to="/"><img src={logo} alt="TechAsia Logo" className="h-12" /></Link>
-        <h1 className="text-3xl font-bold text-orange-400">Blog Management</h1>
+        <h1 className="pl-5 md:pl-0 md:text-3xl font-bold text-orange-400">Blog Management</h1>
         <button onClick={handleAddNew} className="px-6 py-2 bg-gradient-to-r from-amber-500 to-orange-600 rounded-full font-semibold">Add New</button>
       </header>
       

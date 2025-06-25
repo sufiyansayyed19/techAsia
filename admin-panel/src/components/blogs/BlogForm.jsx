@@ -69,7 +69,7 @@ const BlogForm = ({ blog, onSave, onCancel }) => {
         
         <div>
             <h3 className="font-semibold mb-2">Full Content (Markdown)</h3>
-            <div className="prose-dark">
+            <div className="md-editor-dark-theme">
                 <SimpleMDE value={content} onChange={setContent} options={editorOptions} />
             </div>
         </div>
