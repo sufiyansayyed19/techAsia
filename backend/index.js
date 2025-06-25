@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
   res.send('TechAsia Backend API is running!');
 });
 
+app.use('/api/products', productRoutes); 
 
 
 
