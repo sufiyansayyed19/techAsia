@@ -7,9 +7,7 @@ import path from 'path';
 const parser = new DatauriParser();
 
 // --- Helper function to format the buffer from multer ---
-const formatBuffer = (file) => {
-  return parser.format(path.extname(file.originalname).toString(), file.buffer).content;
-}
+const formatBuffer = (file) => parser.format(path.extname(file.originalname).toString(), file.buffer).content;
 
 // @desc    Fetch all products
 // @route   GET /api/products
@@ -25,18 +23,23 @@ export const getProducts = async (req, res) => {
 // @desc    Create a product
 // @route   POST /api/products
 export const createProduct = async (req, res) => {
-  const { title, slug, description, additionalFeatures, technicalDetails } = req.body;
+  // Use default empty values if the fields are not provided
+  const { 
+    title, slug, description, 
+    additionalFeatures = '[]', 
+    technicalDetails = '{}' 
+  } = req.body;
   
   try {
-    let imageUrl = '/images/default.png'; // Default image if none is uploaded
+    let imageUrl;
 
     if (req.file) {
-      // 1. Format the file buffer
       const file = formatBuffer(req.file);
-      // 2. Upload to Cloudinary
       const result = await cloudinary.uploader.upload(file, { folder: 'techasia_products' });
-      // 3. Get the secure URL
       imageUrl = result.secure_url;
+    } else {
+        // If image is required and no file is provided, send an error
+        return res.status(400).json({ message: 'Product image is required' });
     }
     
     const product = new Product({
@@ -57,7 +60,11 @@ export const createProduct = async (req, res) => {
 // @desc    Update a product
 // @route   PUT /api/products/:id
 export const updateProduct = async (req, res) => {
-  const { title, slug, description, additionalFeatures, technicalDetails } = req.body;
+  const { 
+    title, slug, description, 
+    additionalFeatures = '[]', 
+    technicalDetails = '{}' 
+  } = req.body;
   
   try {
     const product = await Product.findById(req.params.id);
@@ -66,14 +73,12 @@ export const updateProduct = async (req, res) => {
       return res.status(404).json({ message: 'Product not found' });
     }
 
-    // Update text fields
-    product.title = title;
-    product.slug = slug;
-    product.description = description;
+    product.title = title || product.title;
+    product.slug = slug || product.slug;
+    product.description = description || product.description;
     product.additionalFeatures = JSON.parse(additionalFeatures);
     product.technicalDetails = JSON.parse(technicalDetails);
     
-    // If a new file is uploaded, upload it to Cloudinary and update the URL
     if (req.file) {
       const file = formatBuffer(req.file);
       const result = await cloudinary.uploader.upload(file, { folder: 'techasia_products' });
