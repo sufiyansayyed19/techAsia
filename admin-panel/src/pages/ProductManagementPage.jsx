@@ -47,33 +47,61 @@ const ProductManagementPage = () => {
     setView('list');
   };
 
-  // --- UPDATED: handleSave now talks to the backend ---
-  const handleSave = async (productData) => {
-    // Note: File upload logic will be added here later.
-    // For now, it just saves the text data.
+   const handleSave = async (productData, imageFile) => {
     const isUpdating = !!productData._id;
     const url = isUpdating ? `${API_BASE_URL}/products/${productData._id}` : `${API_BASE_URL}/products`;
     const method = isUpdating ? 'PUT' : 'POST';
 
+    // FormData is required for file uploads
+    const formData = new FormData();
+
+    // --- CONVERT AND APPEND DATA ---
+    formData.append('title', productData.title);
+    formData.append('slug', productData.slug);
+    formData.append('description', productData.description);
+    
+    // 1. Convert the technicalDetails array into a proper object
+    const finalTechDetails = productData.technicalDetails.reduce((acc, detail) => {
+      if (detail.key) { // Only add if the key is not empty
+        acc[detail.key] = detail.value;
+      }
+      return acc;
+    }, {});
+
+    // 2. Filter out any empty additional features
+    const finalFeatures = productData.additionalFeatures.filter(feature => feature.trim() !== '');
+
+    // 3. Stringify and append the corrected data
+    formData.append('technicalDetails', JSON.stringify(finalTechDetails));
+    formData.append('additionalFeatures', JSON.stringify(finalFeatures));
+
+    // Only append the image file if a new one has been selected
+    if (imageFile) {
+      formData.append('imageFile', imageFile);
+    } else if (!isUpdating) {
+        // If creating a new product and no image is selected, we must alert the user.
+        alert('Please select an image for the new product.');
+        return; // Stop the function
+    }
+
     try {
       const response = await fetch(url, {
         method: method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(productData),
+        body: formData,
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        // If the server sends an error, show it
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to save product');
       }
 
-      await response.json(); // Wait for the response
-      await fetchProducts(); // Refetch all products to show the update
+      await fetchProducts(); // Refetch the list to show changes
       setView('list');
 
     } catch (error) {
-      console.error("Failed to save product:", error);
+      console.error("Save operation failed:", error);
+      alert(`Error: ${error.message}`); // Show a user-friendly error
     }
   };
   
