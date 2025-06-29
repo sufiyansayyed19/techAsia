@@ -23,7 +23,12 @@ export const getProducts = async (req, res) => {
 // @desc    Create a product
 // @route   POST /api/products
 export const createProduct = async (req, res) => {
-  // Use default empty values if the fields are not provided
+  // --- ADD THESE LOGS ---
+  console.log('--- CREATE PRODUCT ENDPOINT HIT ---');
+  console.log('Received file:', req.file);
+  console.log('Received body:', req.body);
+  // --- END OF LOGS ---
+
   const { 
     title, slug, description, 
     additionalFeatures = '[]', 
@@ -33,11 +38,20 @@ export const createProduct = async (req, res) => {
   try {
     let imageUrl;
 
-    if (req.file) {
-      const file = formatBuffer(req.file);
-      const result = await cloudinary.uploader.upload(file, { folder: 'techasia_products' });
-      imageUrl = result.secure_url;
-    } else {
+   if (req.file) {
+    const file = formatBuffer(req.file);
+    
+    // --- THIS IS THE CHANGE ---
+    // Add the transformation option to the upload
+    const result = await cloudinary.uploader.upload(file, { 
+        folder: 'techasia_products',
+        // This tells Cloudinary to resize the image to a max width of 800px
+        // and a max height of 800px, and set the quality to "auto".
+        transformation: [{ width: 800, height: 800, crop: "limit", quality: "auto" }]
+    });
+    
+    imageUrl = result.secure_url;
+  }  else {
         // If image is required and no file is provided, send an error
         return res.status(400).json({ message: 'Product image is required' });
     }
