@@ -13,7 +13,10 @@ const ProductManagementPage = () => {
   const [products, setProducts] = useState([]); // <-- Start with an empty array
   const [currentProduct, setCurrentProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true); // <-- For loading state
+  const [isSaving, setIsSaving] = useState(false);
 
+
+  
   // --- NEW: Function to fetch data from the API ---
   const fetchProducts = async () => {
     try {
@@ -47,41 +50,42 @@ const ProductManagementPage = () => {
     setView('list');
   };
 
-   const handleSave = async (productData, imageFile) => {
-    const isUpdating = !!productData._id;
+   // In src/pages/ProductManagementPage.jsx
+
+  const handleSave = async (productData, imageFile) => {
+   setIsSaving(true);  
+   const isUpdating = !!productData._id;
     const url = isUpdating ? `${API_BASE_URL}/products/${productData._id}` : `${API_BASE_URL}/products`;
     const method = isUpdating ? 'PUT' : 'POST';
 
-    // FormData is required for file uploads
     const formData = new FormData();
 
-    // --- CONVERT AND APPEND DATA ---
     formData.append('title', productData.title);
     formData.append('slug', productData.slug);
     formData.append('description', productData.description);
     
-    // 1. Convert the technicalDetails array into a proper object
-    const finalTechDetails = productData.technicalDetails.reduce((acc, detail) => {
-      if (detail.key) { // Only add if the key is not empty
+    // --- THIS IS THE FIX ---
+    // Ensure technicalDetails and additionalFeatures are arrays before using array methods on them.
+    const techDetailsArray = Array.isArray(productData.technicalDetails) ? productData.technicalDetails : [];
+    const featuresArray = Array.isArray(productData.additionalFeatures) ? productData.additionalFeatures : [];
+
+    const finalTechDetails = techDetailsArray.reduce((acc, detail) => {
+      if (detail && detail.key) { 
         acc[detail.key] = detail.value;
       }
       return acc;
     }, {});
+    
+    const finalFeatures = featuresArray.filter(feature => feature && feature.trim() !== '');
 
-    // 2. Filter out any empty additional features
-    const finalFeatures = productData.additionalFeatures.filter(feature => feature.trim() !== '');
-
-    // 3. Stringify and append the corrected data
     formData.append('technicalDetails', JSON.stringify(finalTechDetails));
     formData.append('additionalFeatures', JSON.stringify(finalFeatures));
 
-    // Only append the image file if a new one has been selected
     if (imageFile) {
       formData.append('imageFile', imageFile);
     } else if (!isUpdating) {
-        // If creating a new product and no image is selected, we must alert the user.
         alert('Please select an image for the new product.');
-        return; // Stop the function
+        return;
     }
 
     try {
@@ -91,18 +95,21 @@ const ProductManagementPage = () => {
       });
 
       if (!response.ok) {
-        // If the server sends an error, show it
         const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to save product');
       }
 
-      await fetchProducts(); // Refetch the list to show changes
+      await fetchProducts();
       setView('list');
 
     } catch (error) {
       console.error("Save operation failed:", error);
-      alert(`Error: ${error.message}`); // Show a user-friendly error
+      alert(`Error: ${error.message}`);
+    } finally {
+      setIsSaving(false); // <-- SET LOADING TO FALSE AT THE END (even if it fails)
     }
+
+    
   };
   
   // --- UPDATED: handleDelete now talks to the backend ---
@@ -143,7 +150,7 @@ const ProductManagementPage = () => {
               </motion.div>
             ) : (
               <motion.div key="form" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
-                <ProductForm product={currentProduct} onSave={handleSave} onCancel={handleCancel} />
+                <ProductForm product={currentProduct} onSave={handleSave} onCancel={handleCancel} isSaving={isSaving} />
               </motion.div>
             )}
           </AnimatePresence>

@@ -1,8 +1,8 @@
-// src/components/products/ProductForm.jsx
-import React, { useState, useEffect } from 'react';
-import { PlusCircle, XCircle } from 'lucide-react';
 
-const ProductForm = ({ product, onSave, onCancel }) => {
+import React, { useState, useEffect } from 'react';
+import { PlusCircle, XCircle, Loader2 } from 'lucide-react';
+
+const ProductForm = ({ product, onSave, onCancel, isSaving }) => {
   const [formData, setFormData] = useState({
     title: '', slug: '', description: '', image: '',
     additionalFeatures: [],
@@ -146,10 +146,29 @@ const ProductForm = ({ product, onSave, onCancel }) => {
             <button type="button" onClick={addDetail} className="text-sm text-orange-400 flex items-center gap-1"><PlusCircle size={16} /> Add Detail</button>
         </div>
         
-        <div className="flex justify-end gap-4 pt-4 border-t border-zinc-700">
-          <button type="button" onClick={onCancel} className="px-6 py-2 bg-zinc-600 rounded-md hover:bg-zinc-500 transition-colors">Cancel</button>
-          <button type="submit" className="px-6 py-2 bg-gradient-to-r from-amber-500 to-orange-600 rounded-full font-semibold">Save Product</button>
-        </div>
+        <div className="flex justify-end items-center gap-4 pt-4 border-t border-zinc-700">
+  <button 
+    type="button" 
+    onClick={onCancel} 
+    disabled={isSaving}
+    className="px-6 py-2 bg-zinc-600 rounded-md hover:bg-zinc-500 transition-colors disabled:opacity-50"
+  >
+    Cancel
+  </button>
+  
+  {/* --- REPLACE THE OLD BUTTON WITH THIS --- */}
+  <button 
+    type="submit"  
+    disabled={isSaving} 
+    className="w-36 flex justify-center items-center px-6 py-2 bg-gradient-to-r from-amber-500 to-orange-600 rounded-full font-semibold disabled:from-zinc-500 disabled:to-zinc-600"
+  >
+    {isSaving ? (
+      <Loader2 className="w-5 h-5 animate-spin" />
+    ) : (
+      'Save Product'
+    )}
+  </button>
+</div>
       </form>
     </div>
   );
