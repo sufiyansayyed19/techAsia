@@ -1,25 +1,25 @@
-// routes/productRoutes.js
 import express from 'express';
 import { getProducts, createProduct, updateProduct, deleteProduct } from '../controllers/productController.js';
+import { protect } from '../middleware/authMiddleware.js'; // This line imports our security middleware
 import multer from 'multer';
+
 const router = express.Router();
-// --- UPDATED: Use Memory Storage instead of Disk Storage ---
+
+// Configure multer to handle file uploads
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-router.route('/').get(getProducts).post(upload.single('imageFile'), createProduct);
-router.route('/:id').put(upload.single('imageFile'), updateProduct).delete(deleteProduct);
+// --- Define Product Routes ---
 
+// GET is public, anyone can see products.
+// POST is now protected by the 'protect' middleware.
+router.route('/')
+  .get(getProducts)
+  .post(protect, upload.single('imageFile'), createProduct);
 
-// This route will handle GET requests to /api/products
-router.route('/').get(getProducts);
-
-// This route will handle POST requests to /api/products
-router.route('/').post(createProduct);
-
-// This handles PUT and DELETE for URLs with an ID, like /api/products/12345
-router.route('/:id').put(updateProduct).delete(deleteProduct);
-
-
+// PUT and DELETE are also protected by the 'protect' middleware.
+router.route('/:id')
+  .put(protect, upload.single('imageFile'), updateProduct)
+  .delete(protect, deleteProduct);
 
 export default router;
