@@ -1,29 +1,31 @@
-// index.js
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import productRoutes from './routes/productRoutes.js';
+import authRoutes from './routes/authRoutes.js'; // 1. IMPORT the new routes
+
 // Load environment variables
 dotenv.config();
 
 const app = express();
 
 // Middleware
-app.use(cors()); // Allows requests from other origins
-app.use(express.json()); // Parses incoming JSON requests
+app.use(cors());
+app.use(express.json());
 
 // Basic route to check if server is running
 app.get('/', (req, res) => {
   res.send('TechAsia Backend API is running!');
 });
 
-app.use('/api/products', productRoutes); 
-
-
+// Use Routes
+app.use('/api/products', productRoutes);
+app.use('/api/auth', authRoutes); // 2. USE the new routes
 
 // Connect to MongoDB
 const connectDB = async () => {
+  // ... (rest of the file is unchanged)
   try {
     await mongoose.connect(process.env.MONGO_URI);
     console.log('MongoDB Connected...');
