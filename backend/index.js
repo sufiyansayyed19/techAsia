@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import productRoutes from './routes/productRoutes.js';
-import authRoutes from './routes/authRoutes.js'; // 1. IMPORT the new routes
+import authRoutes from './routes/authRoutes.js';
+import blogRoutes from './routes/blogRoutes.js'; // 1. IMPORT the new blog routes
 
 // Load environment variables
 dotenv.config();
@@ -14,14 +15,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Basic route to check if server is running
+// Basic route
 app.get('/', (req, res) => {
   res.send('TechAsia Backend API is running!');
 });
 
 // Use Routes
 app.use('/api/products', productRoutes);
-app.use('/api/auth', authRoutes); // 2. USE the new routes
+app.use('/api/auth', authRoutes);
+app.use('/api/blogs', blogRoutes); // 2. USE the new blog routes
 
 // Connect to MongoDB
 const connectDB = async () => {
@@ -31,7 +33,6 @@ const connectDB = async () => {
     console.log('MongoDB Connected...');
   } catch (err) {
     console.error(err.message);
-    // Exit process with failure
     process.exit(1);
   }
 };
