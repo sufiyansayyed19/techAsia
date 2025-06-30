@@ -2,12 +2,35 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import ProductManagementPage from './pages/ProductManagementPage';
 import BlogManagementPage from './pages/BlogManagementPage';
-import { Toaster } from 'react-hot-toast'; // 1. IMPORT the Toaster component
+import ProtectedRoute from './components/auth/ProtectedRoute'; // 1. IMPORT our guard
+import { Toaster } from 'react-hot-toast';
 
 const router = createBrowserRouter([
-  { path: "/", element: <LoginPage /> },
-  { path: "/products", element: <ProductManagementPage /> },
-  { path: "/blogs", element: <BlogManagementPage /> },
+  // The login page is public
+  { 
+    path: "/", 
+    element: <LoginPage /> 
+  },
+  
+  // The products page is now wrapped in our ProtectedRoute component
+  {
+    path: "/products",
+    element: (
+      <ProtectedRoute>
+        <ProductManagementPage />
+      </ProtectedRoute>
+    ),
+  },
+
+  // The blogs page is also protected
+  {
+    path: "/blogs",
+    element: (
+      <ProtectedRoute>
+        <BlogManagementPage />
+      </ProtectedRoute>
+    ),
+  },
 ]);
 
 function App() {
