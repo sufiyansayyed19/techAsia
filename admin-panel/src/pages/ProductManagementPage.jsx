@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast'; // 1. IMPORT toast
 import ProductList from '../components/products/ProductList';
 import ProductForm from '../components/products/ProductForm';
 import { API_BASE_URL } from '../config/api';
@@ -18,21 +19,20 @@ const ProductManagementPage = () => {
   const { userInfo } = useAuthStore();
 
   const getAuthHeader = () => {
-    // Return empty object if no token, to avoid errors
     if (!userInfo?.token) return {}; 
-    return {
-      'Authorization': `Bearer ${userInfo.token}`,
-    };
+    return { 'Authorization': `Bearer ${userInfo.token}` };
   };
 
   const fetchProducts = async () => {
     try {
       setIsLoading(true);
       const response = await fetch(`${API_BASE_URL}/products`);
+      if (!response.ok) throw new Error('Failed to fetch products');
       const data = await response.json();
       setProducts(data);
     } catch (error) {
-      console.error("Failed to fetch products:", error);
+      console.error(error);
+      toast.error(error.message); // 2. USE toast for errors
     } finally {
       setIsLoading(false);
     }
@@ -58,6 +58,7 @@ const ProductManagementPage = () => {
 
   const handleSave = async (productData, imageFile) => {
     setIsSaving(true);
+    const toastId = toast.loading('Saving product...'); // Show loading toast
     const isUpdating = !!productData._id;
     const url = isUpdating ? `${API_BASE_URL}/products/${productData._id}` : `${API_BASE_URL}/products`;
     const method = isUpdating ? 'PUT' : 'POST';
@@ -66,18 +67,9 @@ const ProductManagementPage = () => {
     formData.append('title', productData.title);
     formData.append('slug', productData.slug);
     formData.append('description', productData.description);
-    
-    // --- THIS IS THE FIX ---
-    // The data from the form for technicalDetails is already an object.
-    // We just need to stringify it.
     formData.append('technicalDetails', JSON.stringify(productData.technicalDetails || {}));
-    
-    // Additional features should still be an array.
     formData.append('additionalFeatures', JSON.stringify(productData.additionalFeatures || []));
-
-    if (imageFile) {
-      formData.append('imageFile', imageFile);
-    }
+    if (imageFile) formData.append('imageFile', imageFile);
 
     try {
       const response = await fetch(url, {
@@ -85,17 +77,15 @@ const ProductManagementPage = () => {
         headers: getAuthHeader(),
         body: formData,
       });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || 'Failed to save product');
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to save product');
-      }
-
+      toast.success('Product saved successfully!', { id: toastId }); // 3. SHOW success toast
       await fetchProducts();
       setView('list');
     } catch (error) {
       console.error("Save operation failed:", error);
-      alert(`Error: ${error.message}`);
+      toast.error(error.message, { id: toastId }); // 4. SHOW error toast
     } finally {
       setIsSaving(false);
     }
@@ -103,25 +93,24 @@ const ProductManagementPage = () => {
 
   const handleDelete = async (productId) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
+      const toastId = toast.loading('Deleting product...');
       try {
         const response = await fetch(`${API_BASE_URL}/products/${productId}`, {
           method: 'DELETE',
           headers: getAuthHeader(),
         });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || 'Failed to delete product');
-        }
-
+        if (!response.ok) throw new Error('Failed to delete product');
+        
+        toast.success('Product deleted successfully!', { id: toastId });
         await fetchProducts();
       } catch (error) {
         console.error("Failed to delete product:", error);
-        alert(`Error: ${error.message}`);
+        toast.error(error.message, { id: toastId });
       }
     }
   };
 
+  // --- (JSX is unchanged) ---
   return (
     <div className="min-h-screen bg-zinc-900 text-white p-8">
       <header className="flex justify-between items-center mb-8">
