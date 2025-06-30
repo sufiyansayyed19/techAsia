@@ -6,7 +6,7 @@ import BlogsPage from '../pages/BlogsPage';
 import ContactPage from '../pages/ContactPage';
 import DigitalCardPage from '../pages/DigitalCardPage';
 import EngineeringProjectsPage from '../pages/EngineeringProjectsPage';
-import OurBusinessCardPage from '../pages/OurBusinessCardPage';
+import OurBusinessCardPage from '../pages/ourBusinessCardPage';
 
 export const router = createBrowserRouter([
   {
