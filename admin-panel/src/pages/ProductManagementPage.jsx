@@ -1,23 +1,30 @@
-// src/pages/ProductManagementPage.jsx
-import React, { useState, useEffect } from 'react'; // <-- Import useEffect
+import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import ProductList from '../components/products/ProductList';
 import ProductForm from '../components/products/ProductForm';
-import { API_BASE_URL } from '../config/api'; // <-- Import our API URL
+import { API_BASE_URL } from '../config/api';
 import logo from '../assets/logo.png';
+import useAuthStore from '../store/authStore';
 
 const ProductManagementPage = () => {
   const [view, setView] = useState('list');
-  const [products, setProducts] = useState([]); // <-- Start with an empty array
+  const [products, setProducts] = useState([]);
   const [currentProduct, setCurrentProduct] = useState(null);
-  const [isLoading, setIsLoading] = useState(true); // <-- For loading state
+  const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-
-
   
-  // --- NEW: Function to fetch data from the API ---
+  const { userInfo } = useAuthStore();
+
+  const getAuthHeader = () => {
+    // Return empty object if no token, to avoid errors
+    if (!userInfo?.token) return {}; 
+    return {
+      'Authorization': `Bearer ${userInfo.token}`,
+    };
+  };
+
   const fetchProducts = async () => {
     try {
       setIsLoading(true);
@@ -31,7 +38,6 @@ const ProductManagementPage = () => {
     }
   };
 
-  // --- NEW: useEffect to fetch data when the page loads ---
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -45,52 +51,38 @@ const ProductManagementPage = () => {
     setCurrentProduct(product);
     setView('form');
   };
-  
+
   const handleCancel = () => {
     setView('list');
   };
 
-   // In src/pages/ProductManagementPage.jsx
-
   const handleSave = async (productData, imageFile) => {
-   setIsSaving(true);  
-   const isUpdating = !!productData._id;
+    setIsSaving(true);
+    const isUpdating = !!productData._id;
     const url = isUpdating ? `${API_BASE_URL}/products/${productData._id}` : `${API_BASE_URL}/products`;
     const method = isUpdating ? 'PUT' : 'POST';
 
     const formData = new FormData();
-
     formData.append('title', productData.title);
     formData.append('slug', productData.slug);
     formData.append('description', productData.description);
     
     // --- THIS IS THE FIX ---
-    // Ensure technicalDetails and additionalFeatures are arrays before using array methods on them.
-    const techDetailsArray = Array.isArray(productData.technicalDetails) ? productData.technicalDetails : [];
-    const featuresArray = Array.isArray(productData.additionalFeatures) ? productData.additionalFeatures : [];
-
-    const finalTechDetails = techDetailsArray.reduce((acc, detail) => {
-      if (detail && detail.key) { 
-        acc[detail.key] = detail.value;
-      }
-      return acc;
-    }, {});
+    // The data from the form for technicalDetails is already an object.
+    // We just need to stringify it.
+    formData.append('technicalDetails', JSON.stringify(productData.technicalDetails || {}));
     
-    const finalFeatures = featuresArray.filter(feature => feature && feature.trim() !== '');
-
-    formData.append('technicalDetails', JSON.stringify(finalTechDetails));
-    formData.append('additionalFeatures', JSON.stringify(finalFeatures));
+    // Additional features should still be an array.
+    formData.append('additionalFeatures', JSON.stringify(productData.additionalFeatures || []));
 
     if (imageFile) {
       formData.append('imageFile', imageFile);
-    } else if (!isUpdating) {
-        alert('Please select an image for the new product.');
-        return;
     }
 
     try {
       const response = await fetch(url, {
         method: method,
+        headers: getAuthHeader(),
         body: formData,
       });
 
@@ -101,27 +93,31 @@ const ProductManagementPage = () => {
 
       await fetchProducts();
       setView('list');
-
     } catch (error) {
       console.error("Save operation failed:", error);
       alert(`Error: ${error.message}`);
     } finally {
-      setIsSaving(false); // <-- SET LOADING TO FALSE AT THE END (even if it fails)
+      setIsSaving(false);
     }
-
-    
   };
-  
-  // --- UPDATED: handleDelete now talks to the backend ---
+
   const handleDelete = async (productId) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        await fetch(`${API_BASE_URL}/products/${productId}`, {
-          method: 'DELETE'
+        const response = await fetch(`${API_BASE_URL}/products/${productId}`, {
+          method: 'DELETE',
+          headers: getAuthHeader(),
         });
-        await fetchProducts(); // Refetch to update the list
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to delete product');
+        }
+
+        await fetchProducts();
       } catch (error) {
         console.error("Failed to delete product:", error);
+        alert(`Error: ${error.message}`);
       }
     }
   };
