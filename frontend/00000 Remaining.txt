@@ -1,0 +1,3 @@
+FrontEnd:
+1. Image size reduction all
+2. 
