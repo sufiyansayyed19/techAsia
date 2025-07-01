@@ -15,7 +15,7 @@ const ProductManagementPage = () => {
   const [currentProduct, setCurrentProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-  
+
   const { userInfo } = useAuthStore();
 
   const getAuthHeader = () => {
@@ -91,25 +91,53 @@ const ProductManagementPage = () => {
     }
   };
 
-  const handleDelete = async (productId) => {
-    if (window.confirm('Are you sure you want to delete this product?')) {
-      const toastId = toast.loading('Deleting product...');
-      try {
-        const response = await fetch(`${API_BASE_URL}/products/${productId}`, {
-          method: 'DELETE',
-          headers: getAuthHeader(),
-        });
-        if (!response.ok) throw new Error('Failed to delete product');
-        
-        toast.success('Product deleted successfully!', { id: toastId });
-        await fetchProducts();
-      } catch (error) {
-        console.error("Failed to delete product:", error);
-        toast.error(error.message, { id: toastId });
-      }
+  // A new function to handle the actual deletion logic
+  const performDelete = async (productId) => {
+    const toastId = toast.loading('Deleting product...');
+    try {
+      const response = await fetch(`${API_BASE_URL}/products/${productId}`, {
+        method: 'DELETE',
+        headers: getAuthHeader(),
+      });
+      if (!response.ok) throw new Error('Failed to delete product');
+      
+      toast.success('Product deleted successfully!', { id: toastId });
+      await fetchProducts();
+    } catch (error) {
+      console.error("Failed to delete product:", error);
+      toast.error(error.message, { id: toastId });
     }
   };
 
+
+  // The updated handleDelete function that now shows a confirmation toast
+  const handleDelete = (productId) => {
+    toast((t) => (
+      <div className="bg-zinc-800 text-white p-4 rounded-lg shadow-lg flex flex-col gap-4">
+        <p className="font-semibold">Are you sure you want to delete this product?</p>
+        <p className="text-sm text-zinc-400">This action cannot be undone.</p>
+        <div className="flex justify-end gap-3">
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="px-4 py-2 rounded-md bg-zinc-600 hover:bg-zinc-500 text-sm font-semibold"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={() => {
+              toast.dismiss(t.id);
+              performDelete(productId); // Call the actual delete logic
+            }}
+            className="px-4 py-2 rounded-md bg-red-600 hover:bg-red-500 text-sm font-semibold"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    ), {
+      duration: 6000, // Make it stay longer so the user can react
+    });
+  };
   // --- (JSX is unchanged) ---
   return (
     <div className="min-h-screen bg-zinc-900 text-white p-8">
