@@ -65,9 +65,9 @@ export const createBlog = async (req, res) => {
 // @route   PUT /api/blogs/:id
 export const updateBlog = async (req, res) => {
   const { title, slug, excerpt, publishedDate, content: rawContent } = req.body;
-  console.log("--- UPDATE BLOG CONTROLLER WAS HIT ---");
-  console.log("Request Params ID:", req.params.id);
-  console.log("Request Body:", req.body);
+  // console.log("--- UPDATE BLOG CONTROLLER WAS HIT ---");
+  // console.log("Request Params ID:", req.params.id);
+  // console.log("Request Body:", req.body);
   try {
     const blog = await Blog.findById(req.params.id);
     if (!blog) {
