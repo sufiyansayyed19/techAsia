@@ -160,7 +160,9 @@ const BlogManagementPage = () => {
       <header className="flex justify-between items-center mb-8">
         <Link to="/"><img src={logo} alt="TechAsia Logo" className="h-12" /></Link>
         <h1 className="text-3xl font-bold text-orange-400">Blog Management</h1>
-        <button onClick={handleAddNew} className="px-6 py-2 bg-gradient-to-r from-amber-500 to-orange-600 rounded-full font-semibold">Add New</button>
+        <button onClick={handleAddNew} className={`px-6 py-2 bg-gradient-to-r from-amber-500 to-orange-600 rounded-full font-semibold transition-opacity ${
+    view === 'list' ? 'opacity-100' : 'opacity-0 pointer-events-none'
+}`}>Add New</button>
       </header>
       
       <main>
