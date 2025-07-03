@@ -54,12 +54,22 @@ const BlogManagementPage = () => {
     setView('list');
   };
 
-  const handleSave = async (blogData, imageFile) => {
-    const toastId = toast.loading('Saving blog post...');
+    const handleSave = async (blogData, imageFile) => {
+    // --- START OF DEBUGGING LOGS ---
+    console.log("--- handleSave initiated ---");
+    console.log("Received blogData:", blogData);
+    
     const isUpdating = !!blogData._id;
+    console.log("Is this an update?", isUpdating);
+    
     const url = isUpdating ? `${API_BASE_URL}/blogs/${blogData._id}` : `${API_BASE_URL}/blogs`;
     const method = isUpdating ? 'PUT' : 'POST';
 
+    console.log("Request Method:", method);
+    console.log("Request URL:", url);
+    // --- END OF DEBUGGING LOGS ---
+
+    const toastId = toast.loading('Saving blog post...');
     const formData = new FormData();
     const slug = isUpdating || blogData.slug 
         ? blogData.slug 
