@@ -14,10 +14,10 @@ const ArticleList = ({ posts, selectedPost, onSelectPost }) => {
             key={post._id.$oid}
             onClick={() => onSelectPost(post)}
             className={`flex items-start gap-4 p-3 rounded-lg cursor-pointer transition-all duration-300 ${
-              selectedPost?._id.$oid === post._id.$oid
-                ? 'bg-orange-100'
-                : 'hover:bg-slate-100'
-            }`}
+  selectedPost?._id === post._id // <-- This is the correct line
+    ? 'bg-orange-100'
+    : 'hover:bg-slate-100'
+}`}
           >
             <img 
               src={post.image} 
