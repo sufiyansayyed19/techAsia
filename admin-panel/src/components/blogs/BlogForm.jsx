@@ -1,10 +1,10 @@
-// src/components/blogs/BlogForm.jsx
 import React, { useState, useEffect, useMemo } from 'react';
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 
 const BlogForm = ({ blog, onSave, onCancel }) => {
   const [title, setTitle] = useState('');
+  const [slug, setSlug] = useState('');
   const [publishedDate, setPublishedDate] = useState('');
   const [excerpt, setExcerpt] = useState('');
   const [content, setContent] = useState('');
@@ -13,15 +13,16 @@ const BlogForm = ({ blog, onSave, onCancel }) => {
 
   useEffect(() => {
     if (blog) {
-      setTitle(blog.title);
-      setPublishedDate(blog.publishedDate);
-      setExcerpt(blog.excerpt);
-      setContent(blog.content);
-      setImagePreview(blog.image);
+      setTitle(blog.title || '');
+      setSlug(blog.slug || '');
+      setPublishedDate((blog.publishedDate || '').split('T')[0]);
+      setExcerpt(blog.excerpt || '');
+      setContent(blog.content || '');
+      setImagePreview(blog.image || '');
     } else {
-      // Reset form
       setTitle('');
-      setPublishedDate(new Date().toISOString().split('T')[0]); // Default to today
+      setSlug('');
+      setPublishedDate(new Date().toISOString().split('T')[0]);
       setExcerpt('');
       setContent('');
       setImagePreview('');
@@ -29,6 +30,14 @@ const BlogForm = ({ blog, onSave, onCancel }) => {
     setImageFile(null);
   }, [blog]);
 
+  const handleTitleChange = (e) => {
+    const newTitle = e.target.value;
+    setTitle(newTitle);
+    if (!blog) {
+      setSlug(newTitle.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''));
+    }
+  };
+  
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -39,24 +48,36 @@ const BlogForm = ({ blog, onSave, onCancel }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const blogData = { _id: blog?._id, title, publishedDate, excerpt, content, image: imagePreview };
+    const blogData = { _id: blog?._id, title, slug, publishedDate, excerpt, content, image: imagePreview };
     onSave(blogData, imageFile);
   };
   
-  // This helps prevent the editor from re-rendering unnecessarily
-  const editorOptions = useMemo(() => {
-    return {
-        spellChecker: false,
-        minHeight: "250px",
-        toolbar: ["bold", "italic", "heading", "|", "quote", "unordered-list", "ordered-list", "|", "link", "image", "|", "preview", "side-by-side", "fullscreen"],
-    };
-  }, []);
+  const editorOptions = useMemo(() => ({
+    spellChecker: false,
+    minHeight: "250px",
+    toolbar: ["bold", "italic", "heading", "|", "quote", "unordered-list", "ordered-list", "|", "link", "image", "|", "preview", "side-by-side", "fullscreen"],
+  }), []);
 
   return (
     <div className="bg-zinc-800 p-8 rounded-xl shadow-2xl border border-zinc-700">
       <h2 className="text-xl font-bold mb-6">{blog ? 'Edit Blog Post' : 'Add New Post'}</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
-        <input type="text" value={title} onChange={e => setTitle(e.target.value)} placeholder="Blog Title" className="w-full p-3 bg-zinc-700 rounded-md" required />
+        <input type="text" value={title} onChange={handleTitleChange} placeholder="Blog Title" className="w-full p-3 bg-zinc-700 rounded-md" required />
+        
+        <div>
+            <label htmlFor="slug" className="text-sm font-semibold text-slate-300 mb-1 block">URL Slug</label>
+            <input 
+              id="slug"
+              type="text" 
+              value={slug} 
+              onChange={e => setSlug(e.target.value)} 
+              placeholder="url-slug-will-be-here" 
+              className="w-full p-3 bg-zinc-700 rounded-md" 
+              readOnly={!!blog} 
+            />
+             {blog && <p className="text-xs text-slate-400 mt-1">Slug cannot be changed after creation for SEO reasons.</p>}
+        </div>
+        
         <input type="date" value={publishedDate} onChange={e => setPublishedDate(e.target.value)} className="w-full p-3 bg-zinc-700 rounded-md" />
         
         <div>
