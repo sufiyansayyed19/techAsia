@@ -4,8 +4,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import productRoutes from './routes/productRoutes.js';
 import authRoutes from './routes/authRoutes.js';
-import blogRoutes from './routes/blogRoutes.js'; // 1. IMPORT the new blog routes
-
+import blogRoutes from './routes/blogRoutes.js'; 
+import contactRoutes from './routes/contactRoutes.js'; // for emails 
 // Load environment variables
 dotenv.config();
 
@@ -23,8 +23,8 @@ app.get('/', (req, res) => {
 // Use Routes
 app.use('/api/products', productRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/blogs', blogRoutes); // 2. USE the new blog routes
-
+app.use('/api/blogs', blogRoutes); //  blog routes
+app.use('/api/contact', contactRoutes); // email route  
 // Connect to MongoDB
 const connectDB = async () => {
   // ... (rest of the file is unchanged)
