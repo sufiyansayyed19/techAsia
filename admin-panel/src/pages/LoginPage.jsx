@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
-import { LogIn, KeyRound, Briefcase, BookText } from 'lucide-react';
+import { LogIn, KeyRound, Briefcase, BookText, LogOut } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import useAuthStore from '../store/authStore'; // 1. IMPORT our new auth store
-import { API_BASE_URL } from '../config/api'; // 2. IMPORT the API URL
+import useAuthStore from '../store/authStore';
+import { API_BASE_URL } from '../config/api';
 import logo from '../assets/logo.png';
 
 const LoginPage = () => {
-  // We get the user info and the login function from our store
-  const { userInfo, login } = useAuthStore();
+  const { userInfo, login, logout } = useAuthStore();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -17,29 +16,20 @@ const LoginPage = () => {
     event.preventDefault();
     setLoading(true);
     setError('');
-
     const email = event.target.email.value;
     const password = event.target.password.value;
 
     try {
-      // 3. This is the new API call
       const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-
       const data = await response.json();
-
       if (!response.ok) {
         throw new Error(data.message || 'Login failed');
       }
-      
-      // 4. On success, use our store's login action
       login(data);
-
     } catch (err) {
       setError(err.message);
     } finally {
@@ -59,9 +49,7 @@ const LoginPage = () => {
         <img src={logo} alt="TechAsia Logo" className="h-16 mx-auto mb-8" />
         
         <AnimatePresence mode="wait">
-          {/* 5. We now check userInfo from the store instead of local state */}
           {!userInfo ? (
-            // --- LOGIN FORM ---
             <motion.div
               key="login-form"
               variants={cardVariants}
@@ -76,37 +64,19 @@ const LoginPage = () => {
                     <label htmlFor="email" className="sr-only">Email</label>
                     <div className="relative">
                       <LogIn className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        required
-                        className="w-full p-3 pl-10 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition placeholder:text-slate-400"
-                        placeholder="Email"
-                      />
+                      <input type="email" name="email" id="email" required className="w-full p-3 pl-10 bg-zinc-700 border border-zinc-600 rounded-md" placeholder="Email" />
                     </div>
                   </div>
                   <div>
                     <label htmlFor="password" className="sr-only">Password</label>
                     <div className="relative">
                        <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                      <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        required
-                        className="w-full p-3 pl-10 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition placeholder:text-slate-400"
-                        placeholder="Password"
-                      />
+                      <input type="password" name="password" id="password" required className="w-full p-3 pl-10 bg-zinc-700 border border-zinc-600 rounded-md" placeholder="Password" />
                     </div>
                   </div>
                    {error && <p className="text-sm text-red-400 text-center">{error}</p>}
                   <div>
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className="w-full flex items-center justify-center gap-2 px-8 py-3 font-semibold text-white bg-gradient-to-r from-amber-500 to-orange-600 rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:from-zinc-500 disabled:to-zinc-600"
-                    >
+                    <button type="submit" disabled={loading} className="w-full flex items-center justify-center gap-2 px-8 py-3 font-semibold text-white bg-gradient-to-r from-amber-500 to-orange-600 rounded-full shadow-lg">
                       {loading ? 'Logging in...' : 'Login'}
                     </button>
                   </div>
@@ -114,7 +84,6 @@ const LoginPage = () => {
               </div>
             </motion.div>
           ) : (
-            // --- DASHBOARD OPTIONS ---
             <motion.div
               key="dashboard"
               variants={cardVariants}
@@ -142,6 +111,15 @@ const LoginPage = () => {
                             </div>
                         </motion.div>
                     </Link>
+                </div>
+                <div className="mt-8 text-center">
+                    <button 
+                        onClick={logout} 
+                        className="flex items-center justify-center mx-auto gap-2 px-6 py-2 text-sm text-slate-400 border border-slate-600 rounded-full hover:bg-slate-700 hover:text-white transition-colors"
+                    >
+                        <LogOut size={16} />
+                        <span>Logout</span>
+                    </button>
                 </div>
             </motion.div>
           )}
