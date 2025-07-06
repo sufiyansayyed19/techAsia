@@ -1,12 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { motion } from 'framer-motion';
-// Import the necessary icons
 import { Factory, Package, Cog, Zap, Car, Warehouse } from 'lucide-react';
-// We'll reuse the hero background image for consistency
 import industriesBgImg from '../../assets/landingPage/industries.jpg';
 
-// Data array for the industries. This makes the code clean and manageable.
+
 const industries = [
   { icon: Factory, name: "Manufacturing & Assembly" },
   { icon: Package, name: "Packaging & Material Handling" },
@@ -69,7 +67,6 @@ const IndustriesServed = () => {
             <motion.div
                 key={index}
                 variants={itemVariants}
-                // UPDATED: Hover effect now uses the gray theme
                 whileHover={{ 
                   scale: 1.05, 
                   backgroundColor: 'rgba(51, 65, 85, 0.5)', // A slightly lighter slate on hover
@@ -77,10 +74,10 @@ const IndustriesServed = () => {
                   y: -5
                 }}
                 transition={{ duration: 0.2 }}
-                // UPDATED: Card background and border now use the slate/zinc theme
+                // Card background and border now use the slate/zinc theme
                 className="group bg-zinc-800/50 backdrop-blur-sm border-2 border-slate-700 rounded-xl py-4 px-5 sm:p-6 flex items-center space-x-4 sm:space-x-5"
               >
-                {/* UPDATED: Icon color is now a neutral, bright gray */}
+                {/*  Icon color is a neutral, bright gray */}
                 <industry.icon className="h-9 w-9 text-orange-400 flex-shrink-0" strokeWidth={1.5} />
                 <span className="text-white font-semibold text-base sm:text-lg">{industry.name}</span>
             </motion.div>
