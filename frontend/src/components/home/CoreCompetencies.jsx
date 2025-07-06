@@ -74,7 +74,6 @@ const CoreCompetencies = () => {
                     whileHover={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
                   />
-                  {/* The floating icon that was here has been removed */}
                 </div>
 
                 <motion.div
