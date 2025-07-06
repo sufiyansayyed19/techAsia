@@ -1,7 +1,7 @@
 // config/cloudinary.js
 import { v2 as cloudinary } from 'cloudinary';
 
-// --- DIAGNOSTIC LOG ---
+// --- DIAGNOSTIC LOG FOR DEBUGGING ---
 // Let's print the values to see what Node.js is actually seeing.
 // console.log("--- Reading Cloudinary Config ---");
 // console.log("Cloud Name from .env:", process.env.CLOUDINARY_CLOUD_NAME);
