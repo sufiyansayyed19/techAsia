@@ -10,7 +10,7 @@ const ProductList = ({ products, onEdit, onDelete }) => {
         <table className="w-full text-sm text-left text-slate-300">
           <thead className="text-xs text-orange-400 uppercase bg-zinc-700">
             <tr>
-              {/* --- UPDATED: Added Image Column --- */}
+              {/* --- Image Column --- */}
               <th scope="col" className="px-6 py-3">Image</th>
               <th scope="col" className="px-6 py-3">Title</th>
               <th scope="col" className="px-6 py-3">Slug</th>
@@ -20,7 +20,7 @@ const ProductList = ({ products, onEdit, onDelete }) => {
           <tbody>
             {products.map((product) => (
               <tr key={product._id} className="bg-zinc-800 border-b border-zinc-700 hover:bg-zinc-600">
-                {/* --- UPDATED: Added Image Cell --- */}
+                {/* --- Image Cell --- */}
                 <td className="px-6 py-4">
                   <img 
                     src={product.image} 
