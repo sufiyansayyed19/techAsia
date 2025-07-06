@@ -52,15 +52,14 @@ const CTA = () => {
             <MessageCircle className="w-5 h-5" />
           </motion.a>
 
-          {/* --- UPDATED BUTTON --- */}
           <motion.a
             
             href="/Brochure.pdf" // 
             
-            // 3. Add the 'download' attribute to trigger a download
+            //  'download' attribute to trigger a download
             download="TechAsia-Brochure.pdf" // Optional: can set a custom filename for the user
             
-            // 1. Changed from motion.button to motion.a
+            // Changed from motion.button to motion.a
             whileHover={{ 
               scale: 1.05, 
               y: -3, 
