@@ -99,7 +99,7 @@ const ProductForm = ({ product, onSave, onCancel, isSaving }) => {
         <div>
           <h3 className="font-semibold mb-2">Product Image</h3>
           <div className="flex flex-col gap-4">
-            {/* --- NEW: Image Preview --- */}
+            {/* --- Image Preview --- */}
             {imagePreview && (
               <div>
                 <img 
@@ -156,7 +156,6 @@ const ProductForm = ({ product, onSave, onCancel, isSaving }) => {
     Cancel
   </button>
   
-  {/* --- REPLACE THE OLD BUTTON WITH THIS --- */}
   <button 
     type="submit"  
     disabled={isSaving} 
