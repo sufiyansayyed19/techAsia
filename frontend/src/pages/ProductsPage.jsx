@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, ArrowLeft, Download, Loader2 } from 'lucide-react';
 import { useMediaQuery } from '../hooks/useMediaQuery';
-import { API_BASE_URL } from '../config/api'; // 1. IMPORT our new API config
+import { API_BASE_URL } from '../config/api'; //  API config
 
 // --- Component for the list on the left ---
 const ProductList = ({ products, selectedProduct, onSelectProduct, isLoading }) => (
@@ -10,7 +10,7 @@ const ProductList = ({ products, selectedProduct, onSelectProduct, isLoading }) 
     <h2 className="text-2xl font-bold text-zinc-800 mb-6 pb-4 border-b border-slate-200">
       All Products
     </h2>
-    {/* 3. ADD a loading indicator */}
+    {/* loading indicator */}
     {isLoading ? (
         <div className="flex justify-center items-center h-48">
             <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
@@ -127,9 +127,9 @@ const ProductDetail = ({ product, onBack }) => {
 
 // --- Main Page Component ---
 const ProductsPage = () => {
-  const [products, setProducts] = useState([]); // 2. ADD state for products
+  const [products, setProducts] = useState([]); 
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [isLoading, setIsLoading] = useState(true); // 2. ADD loading state
+  const [isLoading, setIsLoading] = useState(true); 
   const isDesktop = useMediaQuery('(min-width: 1024px)');
 
   useEffect(() => {
@@ -146,17 +146,14 @@ const ProductsPage = () => {
         }
       } catch (error) {
         console.error("Failed to fetch products:", error);
-        // In a real app, you'd set an error state here
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchProducts();
-  }, [isDesktop]); // Re-fetch if the layout changes (to set default selection on desktop)
+  }, [isDesktop]); 
 
-  // This effect handles selecting a product on mobile
-  // or when the default selection is made on desktop
   useEffect(() => {
     if (!isDesktop) {
         setSelectedProduct(null);
