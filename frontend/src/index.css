@@ -19,13 +19,12 @@
     box-sizing: border-box;
   }
 
-  /* Optional: Reset font and smooth scrolling */
+  /*  Reset font and smooth scrolling */
   html {
     scroll-behavior: smooth;
-    /* font-family: sans-serif, Helvetica; */
   }
 
-  /* Optional: Remove list styles (bullets/numbers) */
+  /*  Remove list styles (bullets/numbers) */
   ul, ol {
     list-style: none;
   }
