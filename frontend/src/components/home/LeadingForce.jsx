@@ -74,7 +74,7 @@ const LeadingForce = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            {/* Title - UPDATED to the correct orange gradient */}
+            {/* Title - orange gradient */}
             <motion.h2 
               className="text-4xl sm:text-5xl font-bold mb-4 leading-tight"
               initial={{ opacity: 0, y: -20 }}
@@ -114,7 +114,7 @@ const LeadingForce = () => {
                   variants={featureVariants}
                   className="flex items-start space-x-4 group"
                 >
-                  {/* Checkmark - UPDATED to the correct orange gradient */}
+                  {/* Checkmark - orange gradient */}
                   <motion.div 
                     className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center mt-1"
                     variants={checkVariants}
