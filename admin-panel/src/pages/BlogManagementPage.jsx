@@ -56,17 +56,17 @@ const BlogManagementPage = () => {
 
     const handleSave = async (blogData, imageFile) => {
     // --- START OF DEBUGGING LOGS ---
-    console.log("--- handleSave initiated ---");
-    console.log("Received blogData:", blogData);
+    // console.log("--- handleSave initiated ---");
+    // console.log("Received blogData:", blogData);
     
     const isUpdating = !!blogData._id;
-    console.log("Is this an update?", isUpdating);
+    // console.log("Is this an update?", isUpdating);
     
     const url = isUpdating ? `${API_BASE_URL}/blogs/${blogData._id}` : `${API_BASE_URL}/blogs`;
     const method = isUpdating ? 'PUT' : 'POST';
 
-    console.log("Request Method:", method);
-    console.log("Request URL:", url);
+    // console.log("Request Method:", method);
+    // console.log("Request URL:", url);
     // --- END OF DEBUGGING LOGS ---
 
     const toastId = toast.loading('Saving blog post...');
@@ -103,9 +103,9 @@ const BlogManagementPage = () => {
     }
   };
 
-  // --- START: MODIFIED DELETE LOGIC ---
+  // --- DELETE LOGIC ---
 
-  // 1. A new function to handle the actual API call
+  // 1. function to handle the actual API call
   const performDelete = async (blogId) => {
     const toastId = toast.loading('Deleting post...');
     try {
@@ -123,7 +123,7 @@ const BlogManagementPage = () => {
     }
   };
 
-  // 2. The handleDelete function now shows our custom confirmation toast
+  // 2. The handleDelete function  shows our custom confirmation toast
   const handleDelete = (blogId) => {
     toast((t) => (
       <div className="bg-zinc-800 text-white p-4 rounded-lg shadow-lg flex flex-col gap-4">
@@ -139,7 +139,7 @@ const BlogManagementPage = () => {
           <button
             onClick={() => {
               toast.dismiss(t.id);
-              performDelete(blogId); // Call the new function
+              performDelete(blogId); // Call the  function
             }}
             className="px-4 py-2 rounded-md bg-red-600 hover:bg-red-500 text-sm font-semibold"
           >
@@ -148,7 +148,7 @@ const BlogManagementPage = () => {
         </div>
       </div>
     ), {
-      duration: 6000, // Keep the toast visible longer for confirmation
+      duration: 4000, // Keep the toast visible longer for confirmation
     });
   };
 
@@ -160,9 +160,11 @@ const BlogManagementPage = () => {
       <header className="flex justify-between items-center mb-8">
         <Link to="/"><img src={logo} alt="TechAsia Logo" className="h-12" /></Link>
         <h1 className="text-3xl font-bold text-orange-400">Blog Management</h1>
-        <button onClick={handleAddNew} className={`px-6 py-2 bg-gradient-to-r from-amber-500 to-orange-600 rounded-full font-semibold transition-opacity ${
-    view === 'list' ? 'opacity-100' : 'opacity-0 pointer-events-none'
-}`}>Add New</button>
+        <button onClick={handleAddNew} 
+          className={`px-6 py-2 bg-gradient-to-r from-amber-500 to-orange-600 rounded-full font-semibold transition-opacity ${
+          view === 'list' ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+          Add New
+        </button>
       </header>
       
       <main>
