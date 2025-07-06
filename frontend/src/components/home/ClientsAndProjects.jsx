@@ -36,24 +36,19 @@ const ClientsAndProjects = () => {
     onSelect();
   }, [emblaApi]);
 
-  // --- NEW: A reusable component for rendering testimonials to avoid code duplication ---
+  // ---  A reusable component for rendering testimonials to avoid code duplication ---
   const TestimonialContent = ({ testimonial }) => {
-  // Use a conditional (ternary) operator to check the data type.
+  // conditional (ternary) operator to check the data type.
   const isList = Array.isArray(testimonial);
 
   return (
     <div className="text-sm leading-relaxed text-gray-700">
       {isList ? (
-        // If the testimonial is an array, render it as an unordered list.
-        // `list-none` is the key class to remove default browser bullet points.
         <ul className="space-y-3 list-none">    
           {testimonial.map((item, index) => (
             // Each list item is a flex container for perfect alignment.
             <li key={index} className="flex items-start space-x-3">
-              {/* This div is our custom-styled orange bullet point. */}
               <div className="flex-shrink-0 w-2 h-2 mt-1.5 bg-orange-400 rounded-full"></div>
-              
-              {/* The actual text content of the list item. */}
               <span className="flex-1">{item}</span>
             </li>
           ))}
@@ -91,10 +86,8 @@ const ClientsAndProjects = () => {
                     <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center mb-6 shadow-lg">
                       <Quote className="w-6 h-6 text-white" />
                     </div>
-                    {/* --- FIXED: Using the reusable component --- */}
                     <TestimonialContent testimonial={client.testimonial} />
                   </div>
-
                   <div className="px-8 pb-8">
                     <div className="flex items-center space-x-4 pt-6 border-t border-gray-100">
                       <div className="w-16 h-16 bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl shadow-inner flex items-center justify-center p-3 border border-slate-200">
