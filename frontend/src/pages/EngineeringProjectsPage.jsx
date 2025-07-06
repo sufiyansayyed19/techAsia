@@ -3,10 +3,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Cpu, CircuitBoard, Smartphone, Link as LinkIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { projectsData } from '../data/engineeringProjectsData'; // Import our new data
-
-
-// --- (Keep all the other imports) ---
+import { projectsData } from '../data/engineeringProjectsData'; 
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay'; 
 import img1 from '../assets/EngineeringProjectImages/projectImage1.png'; 
@@ -15,7 +12,7 @@ import img3 from '../assets/EngineeringProjectImages/projectImage3.jpg';
 import img4 from '../assets/EngineeringProjectImages/projectImage4.png';
 import img5 from '../assets/EngineeringProjectImages/projectImage5.png'; 
 
-// --- UPDATED ARRAY ---
+
 const headerImages = [
   { src: img1, alt: 'Advanced Automation System' },
   { src: img2, alt: 'Custom PLC Control Panel' },
@@ -23,8 +20,6 @@ const headerImages = [
   { src: img4, alt: 'Drone Technology Project' },
   { src: img5, alt: 'Robotic Arm in Action' },
 ];
-
-// ... (The rest of your EngineeringProjectsPage component) ...
 
 // Data for our tabs to keep JSX clean
 const tabs = [
@@ -35,7 +30,7 @@ const tabs = [
 
 const EngineeringProjectsPage = () => {
   const [activeTab, setActiveTab] = useState(tabs[0].id);
-  // --- NEW: Initialize Embla Carousel for the header ---
+  // --- Initialize Embla Carousel for the header ---
   const [headerEmblaRef] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 3000, stopOnInteraction: false })
   ]);
@@ -64,8 +59,6 @@ const EngineeringProjectsPage = () => {
                 We Provide full support till project Submission.
               </p>
             </motion.div>
-            
-            {/* --- UPDATED: Static image is replaced with the carousel --- */}
             <motion.div 
               className="relative hidden lg:block"
               initial={{ opacity: 0, scale: 0.8 }}
