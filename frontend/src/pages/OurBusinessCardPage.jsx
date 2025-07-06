@@ -56,8 +56,6 @@ alert('Link copied to clipboard!');
             aria-hidden="true"
         ></div>
         <div className="relative bg-zinc-800 text-white rounded-3xl shadow-2xl overflow-hidden">
-          
-          {/* --- FIXED: Added the main card content back in --- */}
           <div className="p-6 space-y-6">
             <div className="text-center">
               <div className="relative group w-32 h-32 mx-auto">
