@@ -8,7 +8,7 @@ import logo from '../../assets/general/logo.png';
 
 // 2. Updated the quickLinks array with correct names and paths from your router
 const quickLinks = [
-  { name: 'About Us', href: '/contact' }, // As requested, points to the Contact page
+  { name: 'About Us', href: '/contact' }, 
   { name: 'Products', href: '/products' },
   { name: 'Digital Card', href: '/digital-business-card' },
   { name: 'Engineering Projects', href: '/engineering-projects' },
@@ -30,7 +30,7 @@ const Footer = () => {
           
           {/* Column 1: Company & Address */}
           <div className="space-y-4">
-            <a href="/" className="inline-block"> {/* Changed href to "/" to link to homepage */}
+            <a href="/" className="inline-block"> 
               <img src={logo} alt="TechAsia Logo" className="h-12 mx-auto sm:mx-0" />
             </a>
             <div className="flex items-start justify-center sm:justify-start gap-3">
