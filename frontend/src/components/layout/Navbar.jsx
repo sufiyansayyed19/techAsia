@@ -140,7 +140,7 @@ const Navbar = () => {
             <ul className="flex items-center font-semibold text-lg">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  {/* --- UPDATED: Using NavLink component --- */}
+                  {/* ---  NavLink component --- */}
                   <NavLink
                     to={link.path}
                     // The className prop can be a function to dynamically apply classes
@@ -177,7 +177,7 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* --- MODIFIED: Wrapped mobile sidebar elements in AnimatePresence --- */}
+      {/* --- Wrapped mobile sidebar elements in AnimatePresence --- */}
       <AnimatePresence>
         {isMenuOpen && (
           <>
@@ -190,7 +190,7 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
             />
 
-            {/* --- MODIFIED: Mobile Sidebar now uses motion component and variants --- */}
+            {/* --- Mobile Sidebar  uses motion component and variants --- */}
             <motion.aside
               className="fixed top-0 left-0 z-50 w-64 h-screen bg-white dark:bg-[#161616] md:hidden"
               initial="closed"
@@ -209,7 +209,7 @@ const Navbar = () => {
                   </a>
                 </div>
 
-                {/* --- MODIFIED: List and list items are now motion components --- */}
+                {/* --- List and list items are motion components --- */}
                 <nav>
                   {/* The motion.ul inherits the stagger from its parent */}
                   <motion.ul className="space-y-2 font-medium">
@@ -217,32 +217,25 @@ const Navbar = () => {
                       const IconComponent = link.icon;
                       return (
                         <motion.li key={link.name} variants={listItemVariants}>
-                          {/* --- UPDATED: Using NavLink instead of <a> --- */}
+                          {/* --- Using NavLink instead of <a> --- */}
                           <NavLink
                             to={link.path}
                             // Close the menu when a link is clicked
                             onClick={() => setIsMenuOpen(false)}
-                            // --- UPDATED: className is now a function using `isActive` ---
+                            // ---  className is a function using `isActive` ---
                             className={({ isActive }) => `
-            flex items-center p-3 rounded-lg transition-colors duration-200 group
-            ${
-              isActive
-                ? "bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-300"
-                : "text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-            }
-          `}
-                          >
-                            {({ isActive }) => (
+                              flex items-center p-3 rounded-lg transition-colors duration-200 group
+                              ${
+                                isActive
+                                  ? "bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-300"
+                                  : "text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                              }`}>{({ isActive }) => (
                               <>
                                 <IconComponent
-                                  className={`
-                  w-5 h-5 transition-colors duration-200
-                  ${
-                    isActive
-                      ? "text-orange-700 dark:text-orange-300"
-                      : "text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                  }
-                `}
+                                  className={`w-5 h-5 transition-colors duration-200 ${ isActive
+                                  ? "text-orange-700 dark:text-orange-300"
+                                  : "text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                                  }`}
                                 />
                                 <span className="ml-3 capitalize">
                                   {link.name}
