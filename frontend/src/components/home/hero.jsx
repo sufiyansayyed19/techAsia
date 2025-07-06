@@ -41,7 +41,7 @@ const Hero = () => {
             Explore
           </Link>
           
-          {/* The "Contact" button now links to your /vCard page */}
+          {/* The "Contact" button  links to  /vCard page */}
           <Link 
             to="/vCard"
             className="bg-transparent border-2 border-gray-400 text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-black transition-all duration-300"
