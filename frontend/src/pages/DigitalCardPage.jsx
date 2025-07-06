@@ -3,15 +3,12 @@
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { 
-  Share2, Edit3, Sparkles, ArrowRight, XCircle, CheckCircle2 
-} from 'lucide-react';
-// 1. Re-added the import for react-scroll
+import { Share2, Edit3, Sparkles, ArrowRight, XCircle, CheckCircle2 } from 'lucide-react';
 import { Link as ScrollLink } from 'react-scroll'; 
 import { Link as RouterLink } from 'react-router-dom';
 import cardOnPhoneImg from '../assets/digital-card/mobilePic.png';
 
-// The WhatsApp link is still needed for the pricing button
+//  WhatsApp link 
 const WHATSAPP_ORDER_LINK = "https://wa.me/917666308198?text=I%20am%20interested%20in%20a%20digital%20business%20card.";
 
 const DigitalCardPage = () => {
@@ -33,7 +30,7 @@ const DigitalCardPage = () => {
                 <div className="flex items-center gap-3"><Sparkles className="w-6 h-6 text-orange-400" /><span className="font-semibold">Impress with Every Interaction</span></div>
               </div>
               
-              {/* 2. RESTORED: This button now scrolls to the pricing section */}
+              {/*  button scrolls to the pricing section */}
               <motion.div whileHover={{ scale: 1.05 }} className="mt-10">
                 <ScrollLink 
                   to="pricing" 
@@ -57,7 +54,7 @@ const DigitalCardPage = () => {
         </div>
       </section>
 
-      {/* ... (Features and Live Demo sections remain the same) ... */}
+      {/* ... (Features and Live Demo sections) ... */}
       <section className="bg-white py-20 sm:py-24">
         {/* Features Content */}
         <div className="container mx-auto px-6">
@@ -105,7 +102,7 @@ const DigitalCardPage = () => {
         </div>
       </section>
 
-      {/* 4. Pricing Section (Light) */}
+      {/* Pricing Section (Light) */}
       <section id="pricing" className="bg-white py-20 sm:py-24">
         <div className="container mx-auto px-6">
           <motion.div className="max-w-md mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-8 text-center" initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, ease: "easeOut" }}>
@@ -118,7 +115,7 @@ const DigitalCardPage = () => {
               <FeatureListItem>Dedicated URL</FeatureListItem>
             </ul>
             
-            {/* 3. CORRECT: This button links to WhatsApp */}
+            {/*  button links to WhatsApp */}
             <motion.a 
               href={WHATSAPP_ORDER_LINK}
               target="_blank"
