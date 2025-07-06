@@ -12,7 +12,7 @@ const router = createBrowserRouter([
     element: <LoginPage /> 
   },
   
-  // The products page is now wrapped in our ProtectedRoute component
+  // The products page is  wrapped in our ProtectedRoute component
   {
     path: "/products",
     element: (
