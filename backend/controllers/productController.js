@@ -55,7 +55,6 @@ export const createProduct = async (req, res) => {
     res.status(201).json(createdProduct);
 
   } catch (error) {
-    // --- THIS IS THE NEW LOGIC ---
     // Check if the error is the specific 'duplicate key' error (code 11000)
     if (error.code === 11000 && error.keyPattern.slug) {
       // If it is, send a user-friendly message.
