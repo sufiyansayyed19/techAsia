@@ -4,7 +4,7 @@ import { useMediaQuery } from '../hooks/useMediaQuery';
 import { API_BASE_URL } from '../config/api';
 import ArticleList from '../components/blog/ArticleList';
 import ArticleDetail from '../components/blog/ArticleDetail';
-import { Loader2 } from 'lucide-react'; // Import a loader icon
+import { Loader2 } from 'lucide-react'; 
 
 const BlogsPage = () => {
   const [posts, setPosts] = useState([]);
